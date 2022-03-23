@@ -1,23 +1,20 @@
 package clientUI;
 
 import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.net.Socket;
-import java.util.Scanner;
 
-import javafx.application.Application;
-import javafx.application.Platform;
-import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.scene.layout.AnchorPane;
-import javafx.stage.Stage;
-import server.Session.OnMessageListener;
 
 
 public class Client extends Thread  implements ScreenInitial.OnMessageListener{
+	
+	private static Client instance;
+	
+	//Con esto hago que todo se apunte a un unico cliente
+	public static synchronized Client getInstance() {
+		if(instance == null) {
+			instance = new Client();
+		}
+		return instance;
+	}
 	
 //	@FXML
     //private AnchorPane anchorPane;
@@ -29,11 +26,12 @@ public class Client extends Thread  implements ScreenInitial.OnMessageListener{
 	
 	//public final static long TIME=1000;
 	
-	public Client() {
+	private Client() {
+		//sc.setListener(this);
 	}
 	
-	public void setScreenInitial(ScreenInitial sc) {
-		this.sc=sc;
+	public void setScreenInitial() {
+		//this.sc=sc;
 		sc.setListener(this);
 	}
 	

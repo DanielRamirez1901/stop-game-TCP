@@ -16,7 +16,7 @@ public class ScreenInitial {
 	@FXML
     private AnchorPane anchorPaneInit;
 	
-	public Client cl = new Client();
+	public Client cl;
 	
 	private OnMessageListener listener;
 	
@@ -36,8 +36,8 @@ public class ScreenInitial {
 				e.printStackTrace();
 			}
 			
-			cl.setScreenInitial(this);
-			listener.onMessage();
+			cl = Client.getInstance();
+			cl.onMessage();
 			
 	 }
 	 
