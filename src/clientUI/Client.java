@@ -6,7 +6,6 @@ import java.io.InputStreamReader;
 import java.net.Socket;
 import java.util.Scanner;
 
-import comm.Session.OnMessageListener;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
@@ -15,6 +14,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import server.Session.OnMessageListener;
 
 
 public class Client extends Thread  implements ScreenInitial.OnMessageListener{
@@ -122,7 +122,10 @@ public class Client extends Thread  implements ScreenInitial.OnMessageListener{
 	@Override
 	public void onMessage() {
 		System.out.println("Genero la conexion");
-		
+		//Hilos para no bloquear interfaz
+		//Generar la conexion con un run later
+		//En cuanto encuentre otro jugador, hacer listener 
+		//para notificar a la otra interfaz de que cargue juego
 	}
 	
 	/*public void openWindow() throws IOException {
