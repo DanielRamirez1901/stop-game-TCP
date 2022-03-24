@@ -41,11 +41,11 @@ private static ClientConnection instance;
 			socket = new Socket(IP, PORT);
 			bwriter = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
 			breader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-			System.out.println("Espero mensaje");
+			System.out.println("Espero mensaje de otro jugador");
 			String msg = "";
 			msg = breader.readLine();
 			System.out.println(msg);
-			
+			//Crear listener para invocar el metodo ventanaB
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
