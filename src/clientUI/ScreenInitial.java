@@ -24,7 +24,7 @@ public class ScreenInitial {
 	
 	 @FXML
 	 void showWaiting(ActionEvent event) {
-		 
+		 //Pasar stages
 			try {
 				FXMLLoader loader = new FXMLLoader(Main.class.getResource("loadingScreen.fxml"));
 				Parent p;

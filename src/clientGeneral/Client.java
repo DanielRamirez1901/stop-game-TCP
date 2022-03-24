@@ -44,12 +44,13 @@ public class Client implements OnWaitingScreenListener{
 	}
 	
 
-	
+	/*
 	public void startScreenPlayer() {
 		System.out.println("A jugar");
 		sG.setScreenGame(this);
 		playListener.showGamePlayer();
 	}
+	*/
 	
 
 	@Override
@@ -70,6 +71,12 @@ public class Client implements OnWaitingScreenListener{
 
 	public void setPlayListener(OnPlayerFoundListener playListener) {
 		this.playListener = playListener;
+	}
+
+
+
+	public void setSc(ScreenInitial sc) {
+		this.sc = sc;
 	}
 
 	

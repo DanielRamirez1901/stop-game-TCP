@@ -10,7 +10,7 @@ import javafx.stage.Stage;
 
 public class Main extends Application{
 	
-	
+	Stage stage2;
 	
 	
 	public static void main(String[] args) {
@@ -25,10 +25,15 @@ public class Main extends Application{
 		
 		Scene scene = new Scene(p);
 		Stage stage = new Stage();
+		stage2 = stage;
+		
 		stage.setScene(scene);
 		stage.setResizable(false);
 		stage.show();
 	}
+	
+	
+	
 	
 
 }
