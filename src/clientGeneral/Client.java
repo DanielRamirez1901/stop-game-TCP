@@ -1,38 +1,45 @@
-package clientUI;
+package clientGeneral;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.net.Socket;
+
+import clientConnection.ClientConnection;
+import clientUI.ScreenInitial;
+import clientUI.ScreenInitial.OnMessageListener;
+import events.OnWaitingScreenListener;
+import javafx.application.Platform;
 
 
 
-public class Client extends Thread  implements ScreenInitial.OnMessageListener{
+public class Client extends Thread  implements ScreenInitial.OnMessageListener,OnWaitingScreenListener{
 	
-	private static Client instance;
+	//private static Client instance;
 	
-	//Con esto hago que todo se apunte a un unico cliente
+	/*private Client() {}
 	public static synchronized Client getInstance() {
 		if(instance == null) {
 			instance = new Client();
 		}
 		return instance;
-	}
+	}*/
+	public Client() {}
 	
-//	@FXML
-    //private AnchorPane anchorPane;
 	
-	private static BufferedReader breader;
+	
 	
 	public ScreenInitial sc;
+	public ClientConnection cc = ClientConnection.getInstance();
+	
 	
 	
 	//public final static long TIME=1000;
 	
-	private Client() {
-		//sc.setListener(this);
-	}
 	
-	public void setScreenInitial() {
-		//this.sc=sc;
-		sc.setListener(this);
+	
+	public void setScreenInitial(ScreenInitial sc) {
+		this.sc=sc;
+		sc.setWaitingScreenListener(this);
 	}
 	
 	
@@ -119,11 +126,30 @@ public class Client extends Thread  implements ScreenInitial.OnMessageListener{
 
 	@Override
 	public void onMessage() {
-		System.out.println("Genero la conexion");
+		System.out.println("Reparto a client");
+		
+			cc.startConnection();
+		
 		//Hilos para no bloquear interfaz
 		//Generar la conexion con un run later
 		//En cuanto encuentre otro jugador, hacer listener 
 		//para notificar a la otra interfaz de que cargue juego
+	}
+
+
+
+
+
+
+
+	@Override
+	public void waitingScreenListener() {
+		
+		System.out.println("Reparto a client");
+		Platform.runLater(()->{
+		cc.startConnection();
+		});
+		
 	}
 	
 	/*public void openWindow() throws IOException {

@@ -2,7 +2,8 @@ package clientUI;
 
 import java.io.IOException;
 
-
+import clientGeneral.Client;
+import events.OnWaitingScreenListener;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -16,9 +17,10 @@ public class ScreenInitial {
 	@FXML
     private AnchorPane anchorPaneInit;
 	
-	public Client cl;
+	public Client cl = new Client();
 	
 	private OnMessageListener listener;
+	private OnWaitingScreenListener waitingList;
 	
 	 @FXML
 	 void showWaiting(ActionEvent event) {
@@ -35,15 +37,16 @@ public class ScreenInitial {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			
-			cl = Client.getInstance();
-			cl.onMessage();
+			//cl = Client.getInstance();
+			cl.setScreenInitial(this);
+			waitingList.waitingScreenListener();
 			
 	 }
 	 
 	 
 	 
 	 public void setListener(OnMessageListener listener) {this.listener = listener;}
+	 public void setWaitingScreenListener(OnWaitingScreenListener waitingList) {this.waitingList = waitingList;}
 	 
 	 public interface OnMessageListener {void onMessage();}
 		
