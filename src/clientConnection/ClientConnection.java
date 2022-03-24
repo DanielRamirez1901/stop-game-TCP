@@ -52,7 +52,7 @@ private static ClientConnection instance;
 		}
 		}).start();
 		
-		System.out.println("No entro al hilo XD");
+		
 		
 	}
 }
