@@ -9,6 +9,7 @@ import java.net.Socket;
 import java.util.Scanner;
 
 import clientGeneral.Client;
+import events.OnPlayerFoundListener;
 import javafx.application.Platform;
 
 public class ClientConnection {
@@ -29,6 +30,9 @@ private static ClientConnection instance;
 	private final static String IP = "127.0.0.1";
 	private Socket socket;
 	
+	
+	Client cl;
+	
 	public void startConnection() {
 		
 		
@@ -46,6 +50,10 @@ private static ClientConnection instance;
 			msg = breader.readLine();
 			System.out.println(msg);
 			//Crear listener para invocar el metodo ventanaB
+			cl = new Client();
+			cl.startScreenPlayer();
+		
+			
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -55,4 +63,6 @@ private static ClientConnection instance;
 		
 		
 	}
+	
+	
 }

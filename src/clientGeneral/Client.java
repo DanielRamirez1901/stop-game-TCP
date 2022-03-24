@@ -5,8 +5,10 @@ import java.io.BufferedWriter;
 import java.net.Socket;
 
 import clientConnection.ClientConnection;
+import clientUI.ScreenGame;
 import clientUI.ScreenInitial;
 import clientUI.ScreenInitial.OnMessageListener;
+import events.OnPlayerFoundListener;
 import events.OnWaitingScreenListener;
 import javafx.application.Platform;
 
@@ -30,8 +32,8 @@ public class Client implements OnWaitingScreenListener{
 	
 	public ScreenInitial sc;
 	public ClientConnection cc = ClientConnection.getInstance();
-	
-	
+	OnPlayerFoundListener playListener;
+	ScreenGame sG;
 	
 	//public final static long TIME=1000;
 	
@@ -39,6 +41,14 @@ public class Client implements OnWaitingScreenListener{
 	public void setScreenInitial(ScreenInitial sc) {
 		this.sc=sc;
 		sc.setWaitingScreenListener(this);
+	}
+	
+
+	
+	public void startScreenPlayer() {
+		System.out.println("A jugar");
+		sG.setScreenGame(this);
+		playListener.showGamePlayer();
 	}
 	
 
@@ -54,7 +64,15 @@ public class Client implements OnWaitingScreenListener{
 				//En cuanto encuentre otro jugador, hacer listener 
 				//para notificar a la otra interfaz de que cargue juego
 		
-	}	
+	}
+
+
+
+	public void setPlayListener(OnPlayerFoundListener playListener) {
+		this.playListener = playListener;
+	}
+
+	
 	
 	
 }
