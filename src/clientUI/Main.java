@@ -11,6 +11,7 @@ import javafx.stage.Stage;
 public class Main extends Application{
 	
 	Stage stage2;
+	ScreenInitial si = new ScreenInitial();
 	
 	
 	public static void main(String[] args) {
@@ -30,7 +31,15 @@ public class Main extends Application{
 		stage.setScene(scene);
 		stage.setResizable(false);
 		stage.show();
+		si.setStage(stage2);
 	}
+
+
+	public Stage getStage2() {
+		return stage2;
+	}
+	
+	
 	
 	
 	

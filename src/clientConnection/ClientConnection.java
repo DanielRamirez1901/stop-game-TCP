@@ -10,6 +10,7 @@ import java.util.Scanner;
 
 import clientGeneral.Client;
 import clientUI.ScreenGame;
+import clientUI.ScreenInitial;
 import events.OnPlayerFoundListener;
 import javafx.application.Platform;
 
@@ -32,7 +33,7 @@ private static ClientConnection instance;
 	private Socket socket;
 	OnPlayerFoundListener playListener;
 	ScreenGame sg;
-	
+	ScreenInitial si;
 	Client cl;
 	
 	public void startConnection() {
@@ -52,7 +53,7 @@ private static ClientConnection instance;
 				msg = breader.readLine();
 				System.out.println(msg);
 				//Crear listener para invocar el metodo ventanaB
-				sg = ScreenGame.getInstance();
+				sg = ScreenGame.getInstance(si.getStage());
 				playListener.showGamePlayer();
 
 			} catch (IOException e) {
