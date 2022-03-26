@@ -21,14 +21,14 @@ public class ScreenGame implements OnPlayerFoundListener{
      ScreenInitial si;
 	//Instancia unica
 	private static ScreenGame instance;
-	private ScreenGame(Stage stage) {	
+	private ScreenGame() {	
 		cc = ClientConnection.getInstance();
 		cc.setPlayListener(this);
-		this.stage = stage;
+		
 	}
-    public static synchronized ScreenGame getInstance(Stage stage) {
+    public static synchronized ScreenGame getInstance() {
     	if(instance == null) {
-			instance = new ScreenGame(stage);
+			instance = new ScreenGame();
 		}
 		return instance;
     }
@@ -63,7 +63,7 @@ public class ScreenGame implements OnPlayerFoundListener{
 	    
 		@Override
 		public void showGamePlayer() {
-			
+			/*
 				try {
 					FXMLLoader loader = new FXMLLoader(Main.class.getResource("gameScreen.fxml"));
 					Parent p;
@@ -75,7 +75,7 @@ public class ScreenGame implements OnPlayerFoundListener{
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
-				}
+				}*/
 				System.out.println("f");
 		}
 

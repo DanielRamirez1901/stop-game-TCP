@@ -11,6 +11,7 @@ import clientUI.ScreenInitial.OnMessageListener;
 import events.OnPlayerFoundListener;
 import events.OnWaitingScreenListener;
 import javafx.application.Platform;
+import javafx.stage.Stage;
 
 
 
@@ -25,7 +26,9 @@ public class Client implements OnWaitingScreenListener{
 		}
 		return instance;
 	}*/
+	Stage stage;
 	public Client() {}
+	
 	
 	
 	
@@ -79,6 +82,12 @@ public class Client implements OnWaitingScreenListener{
 		this.sc = sc;
 	}
 
+
+	public Stage getStage() {
+		return stage;
+	}
+
+	
 	
 	
 	

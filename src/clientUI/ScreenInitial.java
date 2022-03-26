@@ -17,7 +17,7 @@ public class ScreenInitial {
 	@FXML
     private AnchorPane anchorPaneInit;
 	
-	public Client cl = new Client();
+	public Client cl =  new Client();
 	
 	private OnMessageListener listener;
 	private OnWaitingScreenListener waitingList;
