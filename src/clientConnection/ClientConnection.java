@@ -38,11 +38,11 @@ private static ClientConnection instance;
 	Client cl;
 	Stage stage;
 	String msgToSend;
+
 	
 	public void startConnection(int cont) {
 
-		
-		System.out.println("Comienzo conexion");
+		System.out.println("Ingreso a startConnection");
 		
 		new Thread(()-> {
 			try {
@@ -58,28 +58,31 @@ private static ClientConnection instance;
 					System.out.println(msg);
 					//Crear listener para invocar el metodo ventanaB
 					sg = ScreenGame.getInstance();
-					if(si.getStage()!=null) {
-						sg.setStage(si.getStage());
-					}
 					playListener.showGamePlayer(0);
 				}else if(cont==1){
 					//Caso en el que el jugador presiona Stop
+					System.out.println("Aqui envio mensaje(ganador)");
 					bwriter.write(msgToSend);
 					bwriter.flush();
 					String rivalScore = "";
+					System.out.println("Aqui espero (ganador)");
 					rivalScore = breader.readLine();
 					System.out.println(rivalScore);
+					System.out.println("Invoco interfaz resultado :D");
 					//Invoco listener para que se cambie de pantalla
 					//Pantalla de resultados
 				}else if(cont==2) {
 					//Caso en el que es el jugador perdedor
 					String rivalScore = "";
+					System.out.println("Aqui espero (perdedor)");
 					rivalScore = breader.readLine();
 					sg = ScreenGame.getInstance();
 					sg.sendAlert();
 				}else if(cont==3) {
+					System.out.println("Aqui envio mensaje(perdedor)");
 					bwriter.write(msgToSend);
 					bwriter.flush();
+					System.out.println("Invoco interfaz resultado :D");
 					//Aqui se invoca la interfaz de resultado caso perdedor
 				}
 

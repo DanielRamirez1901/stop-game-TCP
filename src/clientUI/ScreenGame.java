@@ -59,8 +59,6 @@ public class ScreenGame implements OnPlayerFoundListener{
         
 	    @FXML
 	    void stopbutt(ActionEvent event) {
-	    	
-	    	
 	    	String msgToSend = "";
 	    	msgToSend = nametxt.getText()+":"+animaltxt.getText()+":"+citytxt.getText();
 	    	msgToSend = ":"+ittxt.getText();
@@ -68,17 +66,6 @@ public class ScreenGame implements OnPlayerFoundListener{
 	    	Platform.runLater(()->{
 	    		cc.startConnection(1);
 	    	});
-	    	//Si yo presiono Stop
-	    	//Aqui recojo las preguntas
-	    	//Las envio por listener a clientConnection
-	    	//Cambiar metodo listener para recibir un contador
-	    	//enviar todas las letras
-	    	//Recibir las letras del rival
-	    	
-	    	//Si yo no presiono Stop
-	    	//Crear listener para detectar un mensaje(respuestas rival)
-	    	//Cargar interfaz de resultados
-	    	//El mensaje de deteccion seran los resultados del rival
 	    }
 
 	    Client c;
@@ -86,7 +73,7 @@ public class ScreenGame implements OnPlayerFoundListener{
 	    
 		@Override
 		public void showGamePlayer(int cont) {
-			 randomLetterlb.setText(assignRandomLetter());
+			//Descomentar metodo cuando cargue bien el screen
 			/*
 				try {
 					FXMLLoader loader = new FXMLLoader(Main.class.getResource("gameScreen.fxml"));
@@ -95,6 +82,7 @@ public class ScreenGame implements OnPlayerFoundListener{
 					Scene scene = new Scene(p);
 				    stage = (Stage) anchorGame.getScene().getWindow();
 					stage.setScene(scene);
+					randomLetterlb.setText(assignRandomLetter());
 					stage.show();
 					
 				} catch (IOException e) {
@@ -110,9 +98,10 @@ public class ScreenGame implements OnPlayerFoundListener{
 		}
 		
 		public void sendAlert() {
+			System.out.println("Aqui entro en sendAlert");
 			String msgToSend = "";
-	    	msgToSend = nametxt.getText()+":"+animaltxt.getText()+":"+citytxt.getText();
-	    	msgToSend = ":"+ittxt.getText();
+	    	//msgToSend = nametxt.getText()+":"+animaltxt.getText()+":"+citytxt.getText();
+	    	//msgToSend = ":"+ittxt.getText();
 	    	cc.setMsgToSend(msgToSend);
 	    	Platform.runLater(()->{
 	    		cc.startConnection(3);

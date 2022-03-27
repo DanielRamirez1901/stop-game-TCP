@@ -26,6 +26,8 @@ public class ServerPrueba {
 		BufferedReader breader = new BufferedReader(new InputStreamReader(is));
 		bwriter.write("Holiwiris"+"\n");
 		bwriter.flush();
+		bwriter.write("A"+"\n");
+		bwriter.flush();
 		server.close();
 		}
 	}
