@@ -2,10 +2,12 @@ package clientUI;
 
 import java.awt.TextField;
 import java.io.IOException;
+import java.util.Random;
 
 import clientConnection.ClientConnection;
 import clientGeneral.Client;
 import events.OnPlayerFoundListener;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -53,16 +55,38 @@ public class ScreenGame implements OnPlayerFoundListener{
         @FXML
         private Label randomLetterlb;
         
+        String letters[] = new String[3];
+        
 	    @FXML
 	    void stopbutt(ActionEvent event) {
-
+	    	
+	    	
+	    	String msgToSend = "";
+	    	msgToSend = nametxt.getText()+":"+animaltxt.getText()+":"+citytxt.getText();
+	    	msgToSend = ":"+ittxt.getText();
+	    	cc.setMsgToSend(msgToSend);
+	    	Platform.runLater(()->{
+	    		cc.startConnection(1);
+	    	});
+	    	//Si yo presiono Stop
+	    	//Aqui recojo las preguntas
+	    	//Las envio por listener a clientConnection
+	    	//Cambiar metodo listener para recibir un contador
+	    	//enviar todas las letras
+	    	//Recibir las letras del rival
+	    	
+	    	//Si yo no presiono Stop
+	    	//Crear listener para detectar un mensaje(respuestas rival)
+	    	//Cargar interfaz de resultados
+	    	//El mensaje de deteccion seran los resultados del rival
 	    }
 
 	    Client c;
 	    ClientConnection cc;
 	    
 		@Override
-		public void showGamePlayer() {
+		public void showGamePlayer(int cont) {
+			 randomLetterlb.setText(assignRandomLetter());
 			/*
 				try {
 					FXMLLoader loader = new FXMLLoader(Main.class.getResource("gameScreen.fxml"));
@@ -72,13 +96,42 @@ public class ScreenGame implements OnPlayerFoundListener{
 				    stage = (Stage) anchorGame.getScene().getWindow();
 					stage.setScene(scene);
 					stage.show();
+					
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}*/
-				System.out.println("f");
+				System.out.println("Aqui muestro Stop game");
+				//Aqui invoco hilo que entre en modo lectura(cont 2)
+				//Si detecto mensaje, detengo el juego
+				Platform.runLater(()->{
+		    		cc.startConnection(2);
+		    	});
+		}
+		
+		public void sendAlert() {
+			String msgToSend = "";
+	    	msgToSend = nametxt.getText()+":"+animaltxt.getText()+":"+citytxt.getText();
+	    	msgToSend = ":"+ittxt.getText();
+	    	cc.setMsgToSend(msgToSend);
+	    	Platform.runLater(()->{
+	    		cc.startConnection(3);
+	    	});
 		}
 
+		private void assignLetters() {
+			letters[0] = nametxt.getText();
+			letters[1] = animaltxt.getText();
+			letters[2] = citytxt.getText();
+			letters[3] = ittxt.getText();
+		}
+		
+		private String assignRandomLetter() {
+			 Random random = new Random();
+			 char randomizedCharacter = (char) (random.nextInt(26) + 'a');
+			 String randomLetter = String.valueOf(randomizedCharacter);
+			 return randomLetter;
+		}
 
 		
 	    //*********************Setters&Getters*********************

@@ -61,7 +61,7 @@ public class Client implements OnWaitingScreenListener{
 		
 		System.out.println("Reparto a client");
 		Platform.runLater(()->{
-		cc.startConnection();
+		cc.startConnection(0);
 		});
 		//Hilos para no bloquear interfaz
 				//Generar la conexion con un run later
