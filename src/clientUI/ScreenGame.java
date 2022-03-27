@@ -21,12 +21,12 @@ public class ScreenGame implements OnPlayerFoundListener{
 	
 	 Stage stage;
      ScreenInitial si;
-	//Instancia unica
+     
+	//Instancia unica***************************
 	private static ScreenGame instance;
 	private ScreenGame() {	
 		cc = ClientConnection.getInstance();
 		cc.setPlayListener(this);
-		
 	}
     public static synchronized ScreenGame getInstance() {
     	if(instance == null) {
@@ -34,7 +34,8 @@ public class ScreenGame implements OnPlayerFoundListener{
 		}
 		return instance;
     }
-	
+	//*******************************************
+    
     //FXML things
         
         @FXML

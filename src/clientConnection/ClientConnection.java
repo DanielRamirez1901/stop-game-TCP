@@ -9,16 +9,18 @@ import java.net.Socket;
 import java.util.Scanner;
 
 import clientGeneral.Client;
+import clientUI.ScreenFinal;
 import clientUI.ScreenGame;
 import clientUI.ScreenInitial;
+import events.OnFinalScreenListener;
 import events.OnPlayerFoundListener;
 import javafx.application.Platform;
 import javafx.stage.Stage;
 
 public class ClientConnection {
-
-private static ClientConnection instance;
 	
+	//Unica instancia************************
+	private static ClientConnection instance;
 	private ClientConnection() {}
 	public static synchronized ClientConnection getInstance() {
 		if(instance == null) {
@@ -26,22 +28,28 @@ private static ClientConnection instance;
 		}
 		return instance;
 	}
+	//Connection Variables****
 	
 	private BufferedReader breader;
 	private BufferedWriter bwriter;
 	private final static int PORT = 6100;
 	private final static String IP = "127.0.0.1";
 	private Socket socket;
+	
+	//*************************
 	OnPlayerFoundListener playListener;
+	OnFinalScreenListener finalListener;
 	public ScreenGame sg ;
-	ScreenInitial si;
+	public ScreenFinal sf;
+	public ScreenInitial si;
 	Client cl;
 	Stage stage;
-	String msgToSend;
+	String msgMyLetters="";
+	String msgYourLetters="";
 
 	
 	public void startConnection(int cont) {
-
+		
 		System.out.println("Ingreso a startConnection");
 		
 		new Thread(()-> {
@@ -56,34 +64,43 @@ private static ClientConnection instance;
 					String msg = "";
 					msg = breader.readLine();
 					System.out.println(msg);
-					//Crear listener para invocar el metodo ventanaB
 					sg = ScreenGame.getInstance();
 					playListener.showGamePlayer(0);
 				}else if(cont==1){
 					//Caso en el que el jugador presiona Stop
 					System.out.println("Aqui envio mensaje(ganador)");
-					bwriter.write(msgToSend);
+					bwriter.write(msgMyLetters);
 					bwriter.flush();
 					String rivalScore = "";
 					System.out.println("Aqui espero (ganador)");
 					rivalScore = breader.readLine();
+					msgYourLetters = rivalScore;
 					System.out.println(rivalScore);
 					System.out.println("Invoco interfaz resultado :D");
 					//Invoco listener para que se cambie de pantalla
 					//Pantalla de resultados
+					sf = ScreenFinal.getInstance(msgMyLetters,msgYourLetters);
+					finalListener.showFinalScreen();
+					msgMyLetters="";
+					msgYourLetters="";
 				}else if(cont==2) {
 					//Caso en el que es el jugador perdedor
 					String rivalScore = "";
 					System.out.println("Aqui espero (perdedor)");
 					rivalScore = breader.readLine();
+					msgYourLetters= rivalScore;
 					sg = ScreenGame.getInstance();
 					sg.sendAlert();
 				}else if(cont==3) {
 					System.out.println("Aqui envio mensaje(perdedor)");
-					bwriter.write(msgToSend);
+					bwriter.write(msgMyLetters);
 					bwriter.flush();
 					System.out.println("Invoco interfaz resultado :D");
 					//Aqui se invoca la interfaz de resultado caso perdedor
+					sf = ScreenFinal.getInstance(msgMyLetters,msgYourLetters);
+					finalListener.showFinalScreen();
+					msgMyLetters="";
+					msgYourLetters="";
 				}
 
 			} catch (IOException e) {
@@ -100,7 +117,10 @@ private static ClientConnection instance;
 		this.playListener = playListener;
 	}
 	public void setMsgToSend(String msgToSend) {
-		this.msgToSend = msgToSend;
+		this.msgMyLetters = msgToSend;
+	}
+	public void setFinalListener(OnFinalScreenListener finalListener) {
+		this.finalListener = finalListener;
 	}
 	
 	
