@@ -8,6 +8,8 @@ import java.io.OutputStreamWriter;
 import java.net.Socket;
 import java.util.UUID;
 
+import com.google.gson.Gson;
+
 public class Session extends Thread{
 	
 	//Conection
@@ -30,6 +32,7 @@ public class Session extends Thread{
 	
 	@Override
 	public void run() {
+		Gson gson = new Gson();
 		
 		try {
 			System.out.println("Ya cree una sesion de juego");
@@ -38,9 +41,13 @@ public class Session extends Thread{
 			bwriter2 = new BufferedWriter(new OutputStreamWriter(socket2.getOutputStream()));
 			breader2 = new BufferedReader(new InputStreamReader(socket2.getInputStream()));
 			//Aqui les aviso a los dos jugadores que deben jugar
-			bwriter1.write("Ya llego tu rival 1"+"\n");
+			String a = "Ya llego tu rival 1";
+			String toSendC1 = gson.toJson(a);
+			bwriter1.write(toSendC1+"\n");
 			bwriter1.flush();
-			bwriter2.write("Ya llego tu rival 2"+"\n");
+			String b = "Ya llego tu rival 2";
+			String toSendC2 = gson.toJson(b);
+			bwriter2.write(toSendC2+"\n");
 			bwriter2.flush();
 			System.out.println("Ya envie el mensaje a los dos jugadores");
 			
@@ -54,8 +61,10 @@ public class Session extends Thread{
 				try {
 					System.out.println("Esperando rpta cliente 1");
 					msgClient1 = breader1.readLine();//Respuestas cliente 1
-					System.out.println("Mensaje recibido cliente 1: "+msgClient1);
-					bwriter2.write(msgClient1+"\n");//Le envio a cliente 2
+					String msgToSend = gson.fromJson(msgClient1, String.class);
+					System.out.println("Mensaje recibido cliente 1: "+msgToSend);
+					String msgToResend = gson.toJson(msgToSend);
+					bwriter2.write(msgToResend+"\n");//Le envio a cliente 2
 					bwriter2.flush();
 					System.out.println("Respuesta de cliente 1 enviada");
 					
@@ -72,8 +81,10 @@ public class Session extends Thread{
 				try {
 					System.out.println("Esperando rpta cliente 2");
 					msgClient2 = breader2.readLine();//Respuestas cliente 2
-					System.out.println("Mensaje recibido cliente 2:"+msgClient2);
-					bwriter1.write(msgClient2+"\n");//Le envio a cliente 1
+					String msgToSend = gson.fromJson(msgClient2, String.class);
+					System.out.println("Mensaje recibido cliente 2:"+msgToSend);
+					String msgToResend = gson.toJson(msgToSend);
+					bwriter1.write(msgToResend+"\n");//Le envio a cliente 1
 					bwriter1.flush();
 					System.out.println("Respuesta de cliente 2 enviada");
 					
@@ -84,8 +95,7 @@ public class Session extends Thread{
 				
 			}).start();
 			System.out.println("Ya envie las respuestas a los dos");
-			breader1.readLine();//Espero mensaje de finalizar cliente 1
-			breader2.readLine();//Espero mensaje de finalizar cliente 2
+			
 		}catch(IOException ex) {
 			ex.printStackTrace();
 		}

@@ -8,6 +8,8 @@ import java.io.OutputStreamWriter;
 import java.net.Socket;
 import java.util.Scanner;
 
+import com.google.gson.Gson;
+
 import clientGeneral.Client;
 import clientUI.ScreenFinal;
 import clientUI.ScreenGame;
@@ -54,6 +56,7 @@ public class ClientConnection {
 		
 		new Thread(()-> {
 			try {
+				Gson gson = new Gson();
 				if(cont==0) {
 					//Fase de conexion y espera de rival
 					System.out.println("Entro al hilo");
@@ -63,7 +66,8 @@ public class ClientConnection {
 					System.out.println("Espero mensaje de otro jugador");
 					String msg = "";
 					msg = breader.readLine();
-					System.out.println(msg);
+					String msgToPrint = gson.fromJson(msg, String.class);
+					System.out.println(msgToPrint);
 					sg = ScreenGame.getInstance();
 					playListener.showGamePlayer(0);
 				}else if(cont==1){
@@ -71,13 +75,15 @@ public class ClientConnection {
 					System.out.println("Aqui envio mensaje(ganador)");
 					//bwriter.write(msgMyLetters+"\n");
 					String a = "Mensaje enviado desde cliente 1";
-					bwriter.write(a+"\n");
+					String json = gson.toJson(a);
+					bwriter.write(json+"\n");
 					bwriter.flush();
 					String rivalScore = "";
 					System.out.println("Aqui espero (ganador)");
 					rivalScore = breader.readLine();
-					msgYourLetters = rivalScore;
-					System.out.println("Cliente 1 recibio: "+rivalScore);
+					String msgToPrint = gson.fromJson(rivalScore, String.class);
+					msgYourLetters = msgToPrint;
+					System.out.println("Cliente 1 recibio: "+msgToPrint);
 					System.out.println("Invoco interfaz resultado :D");
 					//Invoco listener para que se cambie de pantalla
 					//Pantalla de resultados
@@ -90,15 +96,17 @@ public class ClientConnection {
 					String rivalScore = "";
 					System.out.println("Aqui espero (perdedor)");
 					rivalScore = breader.readLine();
-					System.out.println("Cliente 2 recibio: "+rivalScore);
-					msgYourLetters= rivalScore;
+					String msgToPrint = gson.fromJson(rivalScore, String.class);
+					System.out.println("Cliente 2 recibio: "+msgToPrint);
+					msgYourLetters= msgToPrint;
 					sg = ScreenGame.getInstance();
 					sg.sendAlert();
 				}else if(cont==3) {
 					System.out.println("Aqui envio mensaje(perdedor)");
 					//bwriter.write(msgMyLetters+"\n");
 					String b = "Mensaje enviado desde cliente 2";
-					bwriter.write(b+"\n");
+					String toSend = gson.toJson(b);
+					bwriter.write(toSend+"\n");
 					bwriter.flush();
 					System.out.println("Invoco interfaz resultado :D");
 					//Aqui se invoca la interfaz de resultado caso perdedor
