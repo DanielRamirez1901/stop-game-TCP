@@ -7,18 +7,18 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane fx:id="anchorGame" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="496.0" prefWidth="308.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="clientUI.ScreenGame">
+<AnchorPane fx:id="anchorGame" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="523.0" prefWidth="339.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="clientUI.ScreenFinal">
    <children>
-      <ImageView fitHeight="496.0" fitWidth="307.0" pickOnBounds="true">
+      <ImageView fitHeight="530.0" fitWidth="340.0" pickOnBounds="true">
          <image>
             <Image url="@../../Images/Game.jpg" />
          </image>
       </ImageView>
-      <TextField fx:id="nametxt" layoutX="54.0" layoutY="131.0" prefHeight="25.0" prefWidth="200.0" style="-fx-background-color: white;" />
-      <TextField fx:id="animaltxt" layoutX="54.0" layoutY="203.0" prefHeight="25.0" prefWidth="200.0" style="-fx-background-color: white;" />
-      <TextField fx:id="citytxt" layoutX="54.0" layoutY="273.0" prefHeight="25.0" prefWidth="200.0" style="-fx-background-color: white;" />
-      <TextField fx:id="ittxt" layoutX="54.0" layoutY="341.0" prefHeight="25.0" prefWidth="200.0" style="-fx-background-color: white;" />
-      <Button layoutX="83.0" layoutY="418.0" mnemonicParsing="false" onAction="#stopbutt" opacity="0.0" prefHeight="59.0" prefWidth="158.0" text="Button" />
-      <Label fx:id="randomLetterlb" layoutX="179.0" layoutY="24.0" prefHeight="43.0" prefWidth="64.0" />
+      <TextField fx:id="nametxt" layoutX="60.0" layoutY="140.0" prefHeight="26.0" prefWidth="225.0" />
+      <TextField fx:id="animaltxt" layoutX="57.0" layoutY="217.0" prefHeight="26.0" prefWidth="225.0" />
+      <TextField fx:id="citytxt" layoutX="57.0" layoutY="292.0" prefHeight="26.0" prefWidth="225.0" />
+      <TextField fx:id="ittxt" layoutX="58.0" layoutY="365.0" prefHeight="26.0" prefWidth="225.0" />
+      <Button layoutX="94.0" layoutY="445.0" mnemonicParsing="false" onAction="#stopbutt" opacity="0.0" prefHeight="64.0" prefWidth="174.0" text="Button" />
+      <Label fx:id="randomLetterlb" layoutX="198.0" layoutY="22.0" prefHeight="53.0" prefWidth="72.0" />
    </children>
 </AnchorPane>

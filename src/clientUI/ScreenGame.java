@@ -21,6 +21,7 @@ public class ScreenGame implements OnPlayerFoundListener{
 	
 	 Stage stage;
      ScreenInitial si;
+     MainClient m;
      
 	//Instancia unica***************************
 	private static ScreenGame instance;
@@ -74,13 +75,12 @@ public class ScreenGame implements OnPlayerFoundListener{
 	    
 		@Override
 		public void showGamePlayer(int cont) {
-			//Descomentar metodo cuando cargue bien el screen
-			/*
+				/*
 				try {
-					FXMLLoader loader = new FXMLLoader(Main.class.getResource("gameScreen.fxml"));
-					Parent p;
-					p = (Parent) loader.load();
+					FXMLLoader loader = new FXMLLoader(MainClient.class.getResource("gameScreen.fxml"));
+					Parent p = (Parent) loader.load();
 					Scene scene = new Scene(p);
+					stage = m.getStage2();
 				    stage = (Stage) anchorGame.getScene().getWindow();
 					stage.setScene(scene);
 					randomLetterlb.setText(assignRandomLetter());
