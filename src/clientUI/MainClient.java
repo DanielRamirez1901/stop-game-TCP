@@ -8,7 +8,7 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 
-public class Main extends Application{
+public class MainClient extends Application{
 	
 	Stage stage2;
 	ScreenInitial si = new ScreenInitial();
@@ -21,7 +21,7 @@ public class Main extends Application{
 	
 	@Override
 	public void start(Stage primaryStage) throws Exception {
-		FXMLLoader loader = new FXMLLoader(Main.class.getResource("initialScreen.fxml"));
+		FXMLLoader loader = new FXMLLoader(MainClient.class.getResource("initialScreen.fxml"));
 		Parent p = (Parent) loader.load();
 		
 		Scene scene = new Scene(p);
