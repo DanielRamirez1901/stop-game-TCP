@@ -23,7 +23,9 @@ public class ScreenGame implements OnPlayerFoundListener{
      ScreenInitial si;
      MainClient m;
 	 Client c;
-	 ClientConnection cc = ClientConnection.getInstance();;
+	 ClientConnection cc = ClientConnection.getInstance();
+	 SaveStageToUse save;
+	 Stage stageToShare;
      
 	//Instancia unica***************************
 	private static ScreenGame instance;
@@ -90,14 +92,23 @@ public class ScreenGame implements OnPlayerFoundListener{
 					loader.setController(this);
 					p = (Parent) loader.load();
 					Scene scene = new Scene(p);
-					System.out.println("Esta es la escena"+stage);
-					stage =  (Stage) anchorGame.getScene().getWindow();
+					
+					
+					
+					save = SaveStageToUse.getInstance();
+					stage = save.getStage();
+					System.out.println("Esta es la escena de ScreenGame: "+stage);
+					//stage =  (Stage) anchorGame.getScene().getWindow();
+					stage.setScene(scene);
+					
+					stage.show();
+					
 					
 					
 					//stage.setResizable(false);
-					stage.setScene(scene);
+					//stage.setScene(scene);
 					//randomLetterlb.setText(assignRandomLetter());
-					stage.show();
+					
 					
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
@@ -116,10 +127,11 @@ public class ScreenGame implements OnPlayerFoundListener{
 		    	});
 				*/
 				//
-				
+				/*
 				Platform.runLater(()->{
 		    		cc.startConnection(2);
 		    	});
+		    	*/
 		}
 		
 		public void sendAlert() {

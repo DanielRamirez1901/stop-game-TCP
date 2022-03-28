@@ -31,12 +31,11 @@ public class MainClient extends Application implements OnStartScreenListener{
 		Stage stage = new Stage();
 		stageToSend = stage;
 		
-		stage.setScene(scene);
-		stage.setResizable(false);
-		stage.show();
-		System.out.println("Stage desde MainClient:" +stageToSend);
-		save = SaveStageToUse.getInstance();
-		save.setStage(stageToSend);
+        primaryStage.setScene(scene);
+        primaryStage.show();
+		//System.out.println("Stage desde MainClient:" +stageToSend);
+		//save = SaveStageToUse.getInstance();
+		//save.setStage(stageToSend);
 		//System.out.println("Stage desde MainClient: "+stageToSend);
 		//si = new ScreenInitial();
 		//si.setStage(stageToSend);

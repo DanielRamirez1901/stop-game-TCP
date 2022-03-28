@@ -35,9 +35,7 @@ public class ScreenInitial {
 
 	 @FXML
 	 void showWaiting(ActionEvent event) {
-		save = SaveStageToUse.getInstance();
-		stage = save.getStage();
-		System.out.println("Con esta stage inicio ScreeInitial: "+stage);
+		
 		 /*
 		 mc = new MainClient();
 		 mc.setScreenInitial(this);
@@ -55,11 +53,14 @@ public class ScreenInitial {
 				p = (Parent) loader.load();
 				Scene scene = new Scene(p);
 				//stage2 = stage;
-				stageToSend = stage;
-			    stage = (Stage) anchorPaneInit.getScene().getWindow();
-				stage.setScene(scene);
-				stage.show();
 				
+			    Stage stage = (Stage) anchorPaneInit.getScene().getWindow();
+				stage.setScene(scene);
+				stageToSend = stage;
+				stage.show();
+				save = SaveStageToUse.getInstance();
+				save.setStage(stageToSend);
+				System.out.println("Stge desde ScreenInitial" + stageToSend);
 				//sg.setStage(stage);
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
