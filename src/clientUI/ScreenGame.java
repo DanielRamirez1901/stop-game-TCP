@@ -93,6 +93,15 @@ public class ScreenGame implements OnPlayerFoundListener{
 				System.out.println("Aqui muestro Stop game");
 				//Aqui invoco hilo que entre en modo lectura(cont 2)
 				//Si detecto mensaje, detengo el juego
+				
+				//Borrar luego*****************************************
+				/*
+				Platform.runLater(()->{
+		    		cc.startConnection(1);
+		    	});
+				*/
+				//
+				
 				Platform.runLater(()->{
 		    		cc.startConnection(2);
 		    	});

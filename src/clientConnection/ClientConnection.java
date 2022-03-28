@@ -69,13 +69,15 @@ public class ClientConnection {
 				}else if(cont==1){
 					//Caso en el que el jugador presiona Stop
 					System.out.println("Aqui envio mensaje(ganador)");
-					bwriter.write(msgMyLetters+"\n");
+					//bwriter.write(msgMyLetters+"\n");
+					String a = "Mensaje enviado desde cliente 1";
+					bwriter.write(a+"\n");
 					bwriter.flush();
 					String rivalScore = "";
 					System.out.println("Aqui espero (ganador)");
 					rivalScore = breader.readLine();
 					msgYourLetters = rivalScore;
-					System.out.println(rivalScore);
+					System.out.println("Cliente 1 recibio: "+rivalScore);
 					System.out.println("Invoco interfaz resultado :D");
 					//Invoco listener para que se cambie de pantalla
 					//Pantalla de resultados
@@ -88,12 +90,15 @@ public class ClientConnection {
 					String rivalScore = "";
 					System.out.println("Aqui espero (perdedor)");
 					rivalScore = breader.readLine();
+					System.out.println("Cliente 2 recibio: "+rivalScore);
 					msgYourLetters= rivalScore;
 					sg = ScreenGame.getInstance();
 					sg.sendAlert();
 				}else if(cont==3) {
 					System.out.println("Aqui envio mensaje(perdedor)");
-					bwriter.write(msgMyLetters+"\n");
+					//bwriter.write(msgMyLetters+"\n");
+					String b = "Mensaje enviado desde cliente 2";
+					bwriter.write(b+"\n");
 					bwriter.flush();
 					System.out.println("Invoco interfaz resultado :D");
 					//Aqui se invoca la interfaz de resultado caso perdedor

@@ -52,8 +52,13 @@ public class Session extends Thread{
 				//Hilo espera cliente 1
 				String msgClient1 = "";
 				try {
+					System.out.println("Esperando rpta cliente 1");
 					msgClient1 = breader1.readLine();//Respuestas cliente 1
-					bwriter2.write(msgClient1);//Le envio a cliente 2
+					System.out.println("Mensaje recibido cliente 1: "+msgClient1);
+					bwriter2.write(msgClient1+"\n");//Le envio a cliente 2
+					bwriter2.flush();
+					System.out.println("Respuesta de cliente 1 enviada");
+					
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -65,15 +70,20 @@ public class Session extends Thread{
 				//Hilo espera cliente 2
 				String msgClient2 = "";
 				try {
-					msgClient2 = breader1.readLine();//Respuestas cliente 2
-					bwriter1.write(msgClient2);//Le envio a cliente 1
+					System.out.println("Esperando rpta cliente 2");
+					msgClient2 = breader2.readLine();//Respuestas cliente 2
+					System.out.println("Mensaje recibido cliente 2:"+msgClient2);
+					bwriter1.write(msgClient2+"\n");//Le envio a cliente 1
+					bwriter1.flush();
+					System.out.println("Respuesta de cliente 2 enviada");
+					
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 				
 			}).start();
-			
+			System.out.println("Ya envie las respuestas a los dos");
 			breader1.readLine();//Espero mensaje de finalizar cliente 1
 			breader2.readLine();//Espero mensaje de finalizar cliente 2
 		}catch(IOException ex) {
