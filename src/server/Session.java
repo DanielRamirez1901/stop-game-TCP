@@ -11,30 +11,43 @@ import java.util.UUID;
 public class Session extends Thread{
 	
 	//Conection
-	private Socket socket;
+	private Socket socket1;
+	private Socket socket2;
 	
 	//Writer & Reader
-	private BufferedWriter bwriter;
-	private BufferedReader breader;
+	private BufferedWriter bwriter1;
+	private BufferedReader breader1;
+	private BufferedWriter bwriter2;
+	private BufferedReader breader2;
 	
 	private OnMessageListener listener;
 	
 	//Constructor
-	public Session(Socket socket) {this.socket = socket;}
+	public Session(Socket socket1, Socket socket2) {
+		this.socket1 = socket1;
+		this.socket2 = socket2;
+	}
 	
 	@Override
 	public void run() {
 		
 		try {
+			System.out.println("Ya cree una sesion de juego");
+			bwriter1 = new BufferedWriter(new OutputStreamWriter(socket1.getOutputStream()));
+			breader1 = new BufferedReader(new InputStreamReader(socket1.getInputStream()));
+			bwriter2 = new BufferedWriter(new OutputStreamWriter(socket2.getOutputStream()));
+			breader2 = new BufferedReader(new InputStreamReader(socket2.getInputStream()));
+			//Aqui les aviso a los dos jugadores que deben jugar
+			bwriter1.write("Ya llego tu rival 1"+"\n");
+			bwriter1.flush();
+			bwriter2.write("Ya llego tu rival 2"+"\n");
+			bwriter2.flush();
+			System.out.println("Ya envie el mensaje a los dos jugadores");
 			
-			bwriter = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
-			breader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-			
-			while(true) {
-				String line = breader.readLine();
-				listener.onMessage(line);
-			}
-			
+			//Aqui espero a ambos jugadores por sus respuestas
+			//Si el socket1 me envia algo, le envio esa respuesta al socket2
+			//Si el socket2 me envia algo, le envio esa respuesta al socket1
+			//Debo hacer ambos procesos en hilos
 		}catch(IOException ex) {
 			ex.printStackTrace();
 		}

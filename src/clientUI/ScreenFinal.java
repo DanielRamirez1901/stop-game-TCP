@@ -67,6 +67,7 @@ public class ScreenFinal implements OnFinalScreenListener{
 	    
 		@Override
 		public void showFinalScreen() {
+			System.out.println("Aqui entro a showFinalScreen");
 			//Aqui invoco la interfaz
 			/*
 			try {
@@ -88,21 +89,26 @@ public class ScreenFinal implements OnFinalScreenListener{
 			//Luego de invocarla, hago split para obtener mensajes
 			//Invoco metodo de obtener puntaje
 			
-			
+			System.out.println("Acabo el cliente :D");
 		}
 		public void setStage(Stage stage) {
 			this.stage = stage;
 		}
 		
 		public void setMyLettersInInterface() {
+			System.out.println("Entro a setMyLetters");
+			
 			String [] myLetters = myMsg.split(":");
 			lblMyName.setText(myLetters[0]);
 			lblMyAnimal.setText(myLetters[1]);
 			lblMyCity.setText(myLetters[2]);
 			lblMyThing.setText(myLetters[3]);
+			
 		}
 		
 		public void setYourLettersInInterface() {
+			System.out.println("Entro a SetYouLetter(metodo final)");
+			
 			String [] yourLetters = yourMsg.split(":");
 			lblYourName.setText(yourLetters[0]);
 			calculateScore(lblMyName.getText(), lblYourName.getText());
@@ -118,6 +124,7 @@ public class ScreenFinal implements OnFinalScreenListener{
 			yourScoreString = String.valueOf(yourScore);
 			lblMyScore.setText(myScoreString);
 			lblYourScore.setText(yourScoreString);
+			
 		}
 		
 		public void calculateScore(String myScoremsg, String yourScoremsg) {

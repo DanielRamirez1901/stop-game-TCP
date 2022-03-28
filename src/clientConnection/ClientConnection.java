@@ -69,7 +69,7 @@ public class ClientConnection {
 				}else if(cont==1){
 					//Caso en el que el jugador presiona Stop
 					System.out.println("Aqui envio mensaje(ganador)");
-					bwriter.write(msgMyLetters);
+					bwriter.write(msgMyLetters+"\n");
 					bwriter.flush();
 					String rivalScore = "";
 					System.out.println("Aqui espero (ganador)");
@@ -93,7 +93,7 @@ public class ClientConnection {
 					sg.sendAlert();
 				}else if(cont==3) {
 					System.out.println("Aqui envio mensaje(perdedor)");
-					bwriter.write(msgMyLetters);
+					bwriter.write(msgMyLetters+"\n");
 					bwriter.flush();
 					System.out.println("Invoco interfaz resultado :D");
 					//Aqui se invoca la interfaz de resultado caso perdedor
