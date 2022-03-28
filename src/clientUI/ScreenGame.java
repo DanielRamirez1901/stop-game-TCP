@@ -72,12 +72,12 @@ public class ScreenGame implements OnPlayerFoundListener{
 	    @FXML
 	    void stopbutt(ActionEvent event) {
 	    	String msgToSend = "";
-	    	msgToSend = nametxt.getText()+":"+animaltxt.getText()+":"+citytxt.getText();
-	    	msgToSend = ":"+ittxt.getText();
+	    	//msgToSend = nametxt.getText()+":"+animaltxt.getText()+":"+citytxt.getText();
+	    	//msgToSend = ":"+ittxt.getText();
 	    	cc.setMsgToSend(msgToSend);
-	    	Platform.runLater(()->{
+	    	new Thread(()->{
 	    		cc.startConnection(1);
-	    	});
+	    	}).start();
 	    }
 
 
@@ -121,11 +121,12 @@ public class ScreenGame implements OnPlayerFoundListener{
 				//Si detecto mensaje, detengo el juego
 				
 				//Borrar luego*****************************************
-				/*
-				Platform.runLater(()->{
-		    		cc.startConnection(1);
-		    	});
-				*/
+				
+				new Thread(()-> {
+		    		cc.startConnection(2);
+				}).start();
+		    	
+				
 				//
 				/*
 				Platform.runLater(()->{
