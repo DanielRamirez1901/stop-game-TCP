@@ -7,7 +7,6 @@ import java.net.Socket;
 import clientConnection.ClientConnection;
 import clientUI.ScreenGame;
 import clientUI.ScreenInitial;
-import clientUI.ScreenInitial.OnMessageListener;
 import events.OnPlayerFoundListener;
 import events.OnWaitingScreenListener;
 import javafx.application.Platform;
@@ -27,7 +26,7 @@ public class Client implements OnWaitingScreenListener{
 		return instance;
 	}*/
 	Stage stage;
-	public Client() {}
+	public Client(Stage stage) {this.stage = stage;}
 	
 	
 	
@@ -44,6 +43,7 @@ public class Client implements OnWaitingScreenListener{
 	public void setScreenInitial(ScreenInitial sc) {
 		this.sc=sc;
 		sc.setWaitingScreenListener(this);
+		//this.stage = stage;
 	}
 	
 
@@ -61,7 +61,8 @@ public class Client implements OnWaitingScreenListener{
 		
 		System.out.println("Reparto a client");
 		Platform.runLater(()->{
-		cc.startConnection(0);
+			cc.setStage(stage);
+			cc.startConnection(0);
 		});
 		//Hilos para no bloquear interfaz
 				//Generar la conexion con un run later

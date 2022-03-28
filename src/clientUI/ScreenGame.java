@@ -1,6 +1,5 @@
 package clientUI;
 
-import java.awt.TextField;
 import java.io.IOException;
 import java.util.Random;
 
@@ -14,6 +13,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
@@ -22,19 +22,27 @@ public class ScreenGame implements OnPlayerFoundListener{
 	 Stage stage;
      ScreenInitial si;
      MainClient m;
+	 Client c;
+	 ClientConnection cc = ClientConnection.getInstance();;
      
 	//Instancia unica***************************
 	private static ScreenGame instance;
-	private ScreenGame() {	
+	
+	public ScreenGame(Stage stage) {
+		this.stage = stage;
+		/*
 		cc = ClientConnection.getInstance();
 		cc.setPlayListener(this);
+		*/
 	}
+	/*
     public static synchronized ScreenGame getInstance() {
     	if(instance == null) {
 			instance = new ScreenGame();
 		}
 		return instance;
     }
+    */
 	//*******************************************
     
     //FXML things
@@ -70,26 +78,33 @@ public class ScreenGame implements OnPlayerFoundListener{
 	    	});
 	    }
 
-	    Client c;
-	    ClientConnection cc;
+
 	    
 		@Override
 		public void showGamePlayer(int cont) {
-				/*
+			
+			 Platform.runLater(()->{
+				 	FXMLLoader loader = new FXMLLoader(getClass().getResource("gameScreen.fxml"));
+					Parent p;
 				try {
-					FXMLLoader loader = new FXMLLoader(MainClient.class.getResource("gameScreen.fxml"));
-					Parent p = (Parent) loader.load();
+					loader.setController(this);
+					p = (Parent) loader.load();
 					Scene scene = new Scene(p);
-					stage = m.getStage2();
-				    stage = (Stage) anchorGame.getScene().getWindow();
+					System.out.println("Esta es la escena"+stage);
+					stage =  (Stage) anchorGame.getScene().getWindow();
+					
+					
+					//stage.setResizable(false);
 					stage.setScene(scene);
-					randomLetterlb.setText(assignRandomLetter());
+					//randomLetterlb.setText(assignRandomLetter());
 					stage.show();
 					
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
-				}*/
+				}
+			 });
+			
 				System.out.println("Aqui muestro Stop game");
 				//Aqui invoco hilo que entre en modo lectura(cont 2)
 				//Si detecto mensaje, detengo el juego
@@ -139,4 +154,10 @@ public class ScreenGame implements OnPlayerFoundListener{
 			this.stage = stage;
 		}
 
+		public void setScreenGame(ClientConnection cc) {
+			this.cc=cc;
+			
+			cc.setPlayListener(this);
+			//this.stage = stage;
+		}
 }

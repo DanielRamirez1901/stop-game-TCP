@@ -21,9 +21,23 @@ import javafx.stage.Stage;
 
 public class ClientConnection {
 	
+	//*************************
+	OnPlayerFoundListener playListener;
+	OnFinalScreenListener finalListener;
+	public ScreenGame sg ;
+	public ScreenFinal sf;
+	public ScreenInitial si;
+	Client cl;
+	Stage stage;
+	String msgMyLetters="";
+	String msgYourLetters="";
+
+	
 	//Unica instancia************************
 	private static ClientConnection instance;
-	private ClientConnection() {}
+	
+	private ClientConnection() {
+	}
 	public static synchronized ClientConnection getInstance() {
 		if(instance == null) {
 			instance = new ClientConnection();
@@ -38,16 +52,6 @@ public class ClientConnection {
 	private final static String IP = "127.0.0.1";
 	private Socket socket;
 	
-	//*************************
-	OnPlayerFoundListener playListener;
-	OnFinalScreenListener finalListener;
-	public ScreenGame sg ;
-	public ScreenFinal sf;
-	public ScreenInitial si;
-	Client cl;
-	Stage stage;
-	String msgMyLetters="";
-	String msgYourLetters="";
 
 	
 	public void startConnection(int cont) {
@@ -57,6 +61,7 @@ public class ClientConnection {
 		new Thread(()-> {
 			try {
 				Gson gson = new Gson();
+				sg = new ScreenGame(stage);
 				if(cont==0) {
 					//Fase de conexion y espera de rival
 					System.out.println("Entro al hilo");
@@ -68,7 +73,7 @@ public class ClientConnection {
 					msg = breader.readLine();
 					String msgToPrint = gson.fromJson(msg, String.class);
 					System.out.println(msgToPrint);
-					sg = ScreenGame.getInstance();
+					sg.setScreenGame(this);
 					playListener.showGamePlayer(0);
 				}else if(cont==1){
 					//Caso en el que el jugador presiona Stop
@@ -99,7 +104,7 @@ public class ClientConnection {
 					String msgToPrint = gson.fromJson(rivalScore, String.class);
 					System.out.println("Cliente 2 recibio: "+msgToPrint);
 					msgYourLetters= msgToPrint;
-					sg = ScreenGame.getInstance();
+					//sg = ScreenGame.getInstance();
 					sg.sendAlert();
 				}else if(cont==3) {
 					System.out.println("Aqui envio mensaje(perdedor)");
@@ -126,6 +131,7 @@ public class ClientConnection {
 		
 	}
 	
+	//Listener para invocar pestaña Stop Game
 	public void setPlayListener(OnPlayerFoundListener playListener) {
 		this.playListener = playListener;
 	}
@@ -134,6 +140,12 @@ public class ClientConnection {
 	}
 	public void setFinalListener(OnFinalScreenListener finalListener) {
 		this.finalListener = finalListener;
+	}
+	public Stage getStage() {
+		return stage;
+	}
+	public void setStage(Stage stage) {
+		this.stage = stage;
 	}
 	
 	

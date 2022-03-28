@@ -1,6 +1,7 @@
 package clientUI;
 
 
+import events.OnStartScreenListener;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -8,10 +9,12 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 
-public class MainClient extends Application{
+public class MainClient extends Application implements OnStartScreenListener{
 	
-	Stage stage2;
-	ScreenInitial si = new ScreenInitial();
+	Stage stageToSend;
+	ScreenInitial si ;
+	SaveStageToUse save;
+	//ScreenGame sg = ScreenGame.getInstance();
 	
 	
 	public static void main(String[] args) {
@@ -26,17 +29,34 @@ public class MainClient extends Application{
 		
 		Scene scene = new Scene(p);
 		Stage stage = new Stage();
-		stage2 = stage;
+		stageToSend = stage;
 		
 		stage.setScene(scene);
 		stage.setResizable(false);
 		stage.show();
-		si.setStage(stage2);
+		System.out.println("Stage desde MainClient:" +stageToSend);
+		save = SaveStageToUse.getInstance();
+		save.setStage(stageToSend);
+		//System.out.println("Stage desde MainClient: "+stageToSend);
+		//si = new ScreenInitial();
+		//si.setStage(stageToSend);
 	}
 
 
 	public Stage getStage2() {
-		return stage2;
+		
+		return stageToSend;
+	}
+
+	public void setScreenInitial(ScreenInitial si) {
+		this.si = si;
+		si.setStartListener(this);
+	}
+
+	@Override
+	public Stage getStageToUse() {
+		System.out.println("Stage desde MainClient: "+stageToSend);
+		return stageToSend;
 	}
 	
 	
