@@ -48,6 +48,34 @@ public class Session extends Thread{
 			//Si el socket1 me envia algo, le envio esa respuesta al socket2
 			//Si el socket2 me envia algo, le envio esa respuesta al socket1
 			//Debo hacer ambos procesos en hilos
+			new Thread(()-> {
+				//Hilo espera cliente 1
+				String msgClient1 = "";
+				try {
+					msgClient1 = breader1.readLine();//Respuestas cliente 1
+					bwriter2.write(msgClient1);//Le envio a cliente 2
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				
+			}).start();
+			
+			new Thread(()-> {
+				//Hilo espera cliente 2
+				String msgClient2 = "";
+				try {
+					msgClient2 = breader1.readLine();//Respuestas cliente 2
+					bwriter1.write(msgClient2);//Le envio a cliente 1
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				
+			}).start();
+			
+			breader1.readLine();//Espero mensaje de finalizar cliente 1
+			breader2.readLine();//Espero mensaje de finalizar cliente 2
 		}catch(IOException ex) {
 			ex.printStackTrace();
 		}
