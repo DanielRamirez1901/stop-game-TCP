@@ -63,11 +63,17 @@ public class Session extends Thread{
 					msgClient1 = breader1.readLine();//Respuestas cliente 1
 					String msgToSend = gson.fromJson(msgClient1, String.class);
 					System.out.println("Mensaje recibido cliente 1: "+msgToSend);
+					if(msgToSend == "Stop") {
+						bwriter1.write("StopWinner"+"\n");
+						bwriter2.write("StopLosser"+"\n");
+						
+					}
+					/*
 					String msgToResend = gson.toJson(msgToSend);
 					bwriter2.write(msgToResend+"\n");//Le envio a cliente 2
 					bwriter2.flush();
 					System.out.println("Respuesta de cliente 1 enviada");
-					
+					*/
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -80,6 +86,14 @@ public class Session extends Thread{
 				String msgClient2 = "";
 				try {
 					System.out.println("Esperando rpta cliente 2");
+					msgClient2 = breader2.readLine();//Respuestas cliente 1
+					String msgToSend = gson.fromJson(msgClient2, String.class);
+					System.out.println("Mensaje recibido cliente 2: "+msgToSend);
+					if(msgToSend=="Stop") {
+						
+					}
+					/*
+					System.out.println("Esperando rpta cliente 2");
 					msgClient2 = breader2.readLine();//Respuestas cliente 2
 					String msgToSend = gson.fromJson(msgClient2, String.class);
 					System.out.println("Mensaje recibido cliente 2:"+msgToSend);
@@ -87,7 +101,7 @@ public class Session extends Thread{
 					bwriter1.write(msgToResend+"\n");//Le envio a cliente 1
 					bwriter1.flush();
 					System.out.println("Respuesta de cliente 2 enviada");
-					
+					*/
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
