@@ -120,9 +120,13 @@ public class ScreenResult implements OnFinalScreenListener{
 		lblYourAnimal.setText(yourLetters[1]);
 		lblYourCity.setText(yourLetters[2]);
 		lblYourIt.setText(yourLetters[3]);
+		System.out.println("Nombres:");
 		calculateScore(lblMyName.getText(), lblYourName.getText());
+		System.out.println("Animales:");
 		calculateScore(lblMyAnimal.getText(), lblYourAnimal.getText());
+		System.out.println("Ciudades:");
 		calculateScore(lblMyCity.getText(), lblYourCity.getText());
+		System.out.println("Cosas:");
 		calculateScore(lblMyThing.getText(), lblYourIt.getText());
 		String myScoreString="";
 		String yourScoreString="";
@@ -134,24 +138,23 @@ public class ScreenResult implements OnFinalScreenListener{
 	}
 	
 	public void calculateScore(String myScoremsg, String yourScoremsg) {
-		
-		if(yourScoremsg == "-") {
-			youScore+=youScore+0;
+		System.out.println("Mio: "+myScoremsg+" Tuyo: "+yourScoremsg);
+		if(!myScoremsg.equals("-") && !yourScoremsg.equals("-")) {
+			myScore=myScore+50;
+			youScore=youScore+50;
 		}
-		if(myScoremsg == "-") {
-			myScore+=myScore+0;
+		else if(yourScoremsg.equals("-") && myScoremsg.equals("-")) {
+			youScore=youScore+0;
+			myScore=myScore+0;
 		}
-		if(myScoremsg != "-" && myScoremsg.equals(yourScoremsg)) {
-			myScore+=myScore+50;
-			youScore+=youScore+50;
+		else if(!myScoremsg.equals("-") && yourScoremsg.equals("-")) {
+			myScore=myScore+100;
 		}
-		if(myScoremsg != "-" && yourScoremsg == "-") {
-			myScore+=myScore+100;
+		else if(!yourScoremsg.equals("-") && myScoremsg.equals("-")) {
+			youScore=youScore+100;
 		}
-		if(yourScoremsg != "-" && myScoremsg == "-") {
-			youScore+=youScore+100;
-		}
-
+		System.out.println("Mi puntaje: "+myScore);
+		System.out.println("Tu puntaje: "+youScore);
 		
 	}
 	
