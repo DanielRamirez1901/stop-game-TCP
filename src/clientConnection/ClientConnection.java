@@ -76,6 +76,30 @@ public class ClientConnection {
 					sg.setScreenGame(this);
 					playListener.showGamePlayer(0);
 				}//
+				else if(cont==1) {
+					bwriter.write("Stop"+"\n");
+					bwriter.flush();
+					String msgToDecide = "";
+					msgToDecide = breader.readLine();
+					if(msgToDecide == "StopWinner") {
+						System.out.println("Entre como cliente ganador");
+						String msgToSend = "Mensaje enviado desde el ganador";
+						bwriter.write(msgToSend+"\n");
+						bwriter.flush();
+						String msgOfLosser = "";
+						msgOfLosser = breader.readLine();
+						System.out.println(msgOfLosser);
+					}else if(msgToDecide == "StopLosser") {
+						System.out.println("Entre como cliente perdedor");
+						String msgOfWinner = "";
+						msgOfWinner = breader.readLine();
+						System.out.println(msgOfWinner);
+						String msgToSend = "Mensaje enviado desde el perdedor";
+						bwriter.write(msgToSend+"\n");
+						bwriter.flush();
+						
+					}
+				}
 				/*
 				else if(cont==1){
 					//Caso en el que el jugador presiona Stop

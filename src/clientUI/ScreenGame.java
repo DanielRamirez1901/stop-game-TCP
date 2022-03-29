@@ -122,10 +122,11 @@ public class ScreenGame implements OnPlayerFoundListener{
 				
 				//Borrar luego*****************************************
 				
+				/*
 				new Thread(()-> {
 		    		cc.startConnection(2);
 				}).start();
-		    	
+		    	*/
 				
 				//
 				/*
