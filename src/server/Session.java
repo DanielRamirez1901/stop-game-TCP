@@ -68,15 +68,9 @@ public class Session extends Thread{
 						String stopWinner = "StopWinner";
 						String stopLosser = "StopLosser";
 						System.out.println("Les envio el stop a ambos");
-						new Thread(()-> {
-							try {
-								bwriter1.write(stopWinner+"\n");
-								bwriter1.flush();
-							} catch (IOException e) {
-								// TODO Auto-generated catch block
-								e.printStackTrace();
-							}
-						}).start();
+
+						bwriter1.write(stopWinner+"\n");
+						bwriter1.flush();
 						bwriter2.write(stopLosser+"\n");
 						bwriter2.flush();
 						String msgToSendLosser = "";
@@ -88,10 +82,6 @@ public class Session extends Thread{
 						msgToSendWinner = breader2.readLine();
 						bwriter1.write(msgToSendWinner+"\n");
 						bwriter1.flush();
-					}else {
-						//Caso en el que cliente 1 es perdedor
-						
-						
 					}
 					/*
 					String msgToResend = gson.toJson(msgToSend);
