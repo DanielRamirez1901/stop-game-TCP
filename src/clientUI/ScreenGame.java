@@ -74,10 +74,10 @@ public class ScreenGame implements OnPlayerFoundListener{
 	    	String msgToSend = "";
 	    	//msgToSend = nametxt.getText()+":"+animaltxt.getText()+":"+citytxt.getText();
 	    	//msgToSend = ":"+ittxt.getText();
-	    	cc.setMsgToSend(msgToSend);
-	    	new Thread(()->{
+	    	//cc.setMsgToSend(msgToSend);
+	    	Platform.runLater(()-> {
 	    		cc.startConnection(1);
-	    	}).start();
+	    	});
 	    }
 
 
@@ -85,7 +85,7 @@ public class ScreenGame implements OnPlayerFoundListener{
 		@Override
 		public void showGamePlayer(int cont) {
 			
-			 Platform.runLater(()->{
+			Platform.runLater(()-> {
 				 	FXMLLoader loader = new FXMLLoader(getClass().getResource("gameScreen.fxml"));
 					Parent p;
 				try {
@@ -114,19 +114,19 @@ public class ScreenGame implements OnPlayerFoundListener{
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-			 });
 			
+			});
 				System.out.println("Aqui muestro Stop game");
 				//Aqui invoco hilo que entre en modo lectura(cont 2)
 				//Si detecto mensaje, detengo el juego
 				
 				//Borrar luego*****************************************
 				
-				/*
-				new Thread(()-> {
+				
+				Platform.runLater(()-> {
 		    		cc.startConnection(2);
-				}).start();
-		    	*/
+				});
+		    	
 				
 				//
 				/*

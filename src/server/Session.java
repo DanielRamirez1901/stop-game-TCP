@@ -42,12 +42,12 @@ public class Session extends Thread{
 			breader2 = new BufferedReader(new InputStreamReader(socket2.getInputStream()));
 			//Aqui les aviso a los dos jugadores que deben jugar
 			String a = "Ya llego tu rival 1";
-			String toSendC1 = gson.toJson(a);
-			bwriter1.write(toSendC1+"\n");
+			//String toSendC1 = gson.toJson(a);
+			bwriter1.write(a+"\n");
 			bwriter1.flush();
 			String b = "Ya llego tu rival 2";
-			String toSendC2 = gson.toJson(b);
-			bwriter2.write(toSendC2+"\n");
+			//String toSendC2 = gson.toJson(b);
+			bwriter2.write(b+"\n");
 			bwriter2.flush();
 			System.out.println("Ya envie el mensaje a los dos jugadores");
 			
@@ -61,17 +61,28 @@ public class Session extends Thread{
 				try {
 					System.out.println("Esperando rpta cliente 1");
 					msgClient1 = breader1.readLine();//Respuestas cliente 1
-					String msgToSend = gson.fromJson(msgClient1, String.class);
-					System.out.println("Mensaje recibido cliente 1: "+msgToSend);
-					if(msgToSend == "Stop") {
+					//String msgToSend = gson.fromJson(msgClient1, String.class);
+					System.out.println("Mensaje recibido cliente 1: "+msgClient1);
+					if(msgClient1.equals("Stop")) {
 						//Caso en el que el cliente 1 es ganador
-						bwriter1.write("StopWinner"+"\n");
-						bwriter1.flush();
-						bwriter2.write("StopLosser"+"\n");
+						String stopWinner = "StopWinner";
+						String stopLosser = "StopLosser";
+						System.out.println("Les envio el stop a ambos");
+						new Thread(()-> {
+							try {
+								bwriter1.write(stopWinner+"\n");
+								bwriter1.flush();
+							} catch (IOException e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							}
+						}).start();
+						bwriter2.write(stopLosser+"\n");
 						bwriter2.flush();
 						String msgToSendLosser = "";
+						System.out.println("Espero mensaje de cliente ganador");
 						msgToSendLosser = breader1.readLine();
-						bwriter2.write(msgToSendLosser+"/n");
+						bwriter2.write(msgToSendLosser+"\n");
 						bwriter2.flush();
 						String msgToSendWinner = "";
 						msgToSendWinner = breader2.readLine();
@@ -79,6 +90,7 @@ public class Session extends Thread{
 						bwriter1.flush();
 					}else {
 						//Caso en el que cliente 1 es perdedor
+						
 						
 					}
 					/*
@@ -93,22 +105,26 @@ public class Session extends Thread{
 				}
 				
 			}).start();
-			
+			/*
 			new Thread(()-> {
 				//Hilo espera cliente 2
 				String msgClient2 = "";
 				try {
 					System.out.println("Esperando rpta cliente 2");
 					msgClient2 = breader2.readLine();//Respuestas cliente 1
-					String msgToSend = gson.fromJson(msgClient2, String.class);
-					System.out.println("Mensaje recibido cliente 2: "+msgToSend);
-					if(msgToSend == "Stop") {
+					//String msgToSend = gson.fromJson(msgClient2, String.class);
+					System.out.println("Mensaje recibido cliente 2: "+msgClient2);
+					if(msgClient2.equals("Stop")) {
+						String stopWinner = "StopWinner";
+						String stopLosser = "StopLosser";
 						//Caso en el que el cliente 2 es ganador
-						bwriter1.write("StopWinner"+"\n");
+						System.out.println("Les envio el stop a ambos");
+						bwriter1.write(stopLosser+"\n");
 						bwriter1.flush();
-						bwriter2.write("StopLosser"+"\n");
+						bwriter2.write(stopWinner+"\n");
 						bwriter2.flush();
 						String msgToSendLosser = "";
+						System.out.println("Espero mensaje de cliente ganador");
 						msgToSendLosser = breader2.readLine();
 						bwriter1.write(msgToSendLosser+"/n");
 						bwriter1.flush();
@@ -117,7 +133,7 @@ public class Session extends Thread{
 						bwriter2.write(msgToSendWinner+"\n");
 						bwriter2.flush();
 					}
-					/*
+					
 					System.out.println("Esperando rpta cliente 2");
 					msgClient2 = breader2.readLine();//Respuestas cliente 2
 					String msgToSend = gson.fromJson(msgClient2, String.class);
@@ -126,13 +142,14 @@ public class Session extends Thread{
 					bwriter1.write(msgToResend+"\n");//Le envio a cliente 1
 					bwriter1.flush();
 					System.out.println("Respuesta de cliente 2 enviada");
-					*/
+					
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 				
 			}).start();
+			*/
 			System.out.println("Ya envie las respuestas a los dos");
 			
 		}catch(IOException ex) {

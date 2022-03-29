@@ -71,25 +71,39 @@ public class ClientConnection {
 					System.out.println("Espero mensaje de otro jugador");
 					String msg = "";
 					msg = breader.readLine();
-					String msgToPrint = gson.fromJson(msg, String.class);
-					System.out.println(msgToPrint);
+					//String msgToPrint = gson.fromJson(msg, String.class);
+					System.out.println(msg);
 					sg.setScreenGame(this);
 					playListener.showGamePlayer(0);
 				}//
 				else if(cont==1) {
-					bwriter.write("Stop"+"\n");
+					String stopMsg = "Stop";
+					bwriter.write(stopMsg+"\n");
 					bwriter.flush();
 					String msgToDecide = "";
-					msgToDecide = breader.readLine();
-					if(msgToDecide == "StopWinner") {
-						System.out.println("Entre como cliente ganador");
+					System.out.println("Entre como cliente ganador");
+					//msgToDecide = breader.readLine();
+					
+					System.out.println("Como ganador recibi: "+msgToDecide);
+					//if(msgToDecide.equals("StopWinner")) {
+					
 						String msgToSend = "Mensaje enviado desde el ganador";
-						bwriter.write(msgToSend+"\n");
-						bwriter.flush();
+						new Thread(()-> {
+						try {
+							bwriter.write(msgToSend+"\n");
+							bwriter.flush();
+						} catch (IOException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+						}).start();
 						String msgOfLosser = "";
+						System.out.println("Espero mensaje del perdedor");
 						msgOfLosser = breader.readLine();
 						System.out.println(msgOfLosser);
-					}else if(msgToDecide == "StopLosser") {
+						System.out.println("Ya termine de recibir y enviar como ganador");
+					//}
+					/*else if(msgToDecide == "StopLosser") {
 						System.out.println("Entre como cliente perdedor");
 						String msgOfWinner = "";
 						msgOfWinner = breader.readLine();
@@ -98,6 +112,20 @@ public class ClientConnection {
 						bwriter.write(msgToSend+"\n");
 						bwriter.flush();
 						
+					}*/
+				}else if(cont == 2) {
+					String readMsg = "";
+					String msgToSendToWinner = "Mensaje enviado desde el perdedor";
+					
+					readMsg = breader.readLine();
+					System.out.println("Como perdedor recibi: "+readMsg);
+					if(readMsg.equals("StopLosser")) {
+						System.out.println("Soy el cliente perdedor");
+						readMsg = breader.readLine();
+						System.out.println(readMsg);
+						bwriter.write(msgToSendToWinner+"\n");
+						bwriter.flush();
+						System.out.println("unu");
 					}
 				}
 				/*
