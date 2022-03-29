@@ -64,8 +64,21 @@ public class Session extends Thread{
 					String msgToSend = gson.fromJson(msgClient1, String.class);
 					System.out.println("Mensaje recibido cliente 1: "+msgToSend);
 					if(msgToSend == "Stop") {
+						//Caso en el que el cliente 1 es ganador
 						bwriter1.write("StopWinner"+"\n");
+						bwriter1.flush();
 						bwriter2.write("StopLosser"+"\n");
+						bwriter2.flush();
+						String msgToSendLosser = "";
+						msgToSendLosser = breader1.readLine();
+						bwriter2.write(msgToSendLosser+"/n");
+						bwriter2.flush();
+						String msgToSendWinner = "";
+						msgToSendWinner = breader2.readLine();
+						bwriter1.write(msgToSendWinner+"\n");
+						bwriter1.flush();
+					}else {
+						//Caso en el que cliente 1 es perdedor
 						
 					}
 					/*
@@ -89,8 +102,20 @@ public class Session extends Thread{
 					msgClient2 = breader2.readLine();//Respuestas cliente 1
 					String msgToSend = gson.fromJson(msgClient2, String.class);
 					System.out.println("Mensaje recibido cliente 2: "+msgToSend);
-					if(msgToSend=="Stop") {
-						
+					if(msgToSend == "Stop") {
+						//Caso en el que el cliente 2 es ganador
+						bwriter1.write("StopWinner"+"\n");
+						bwriter1.flush();
+						bwriter2.write("StopLosser"+"\n");
+						bwriter2.flush();
+						String msgToSendLosser = "";
+						msgToSendLosser = breader2.readLine();
+						bwriter1.write(msgToSendLosser+"/n");
+						bwriter1.flush();
+						String msgToSendWinner = "";
+						msgToSendWinner = breader1.readLine();
+						bwriter2.write(msgToSendWinner+"\n");
+						bwriter2.flush();
 					}
 					/*
 					System.out.println("Esperando rpta cliente 2");

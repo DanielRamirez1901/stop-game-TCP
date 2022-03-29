@@ -75,7 +75,9 @@ public class ClientConnection {
 					System.out.println(msgToPrint);
 					sg.setScreenGame(this);
 					playListener.showGamePlayer(0);
-				}else if(cont==1){
+				}//
+				/*
+				else if(cont==1){
 					//Caso en el que el jugador presiona Stop
 					System.out.println("A:Soy el ganador, presione Stop");
 					//bwriter.write(msgMyLetters+"\n");
@@ -95,13 +97,14 @@ public class ClientConnection {
 					System.out.println("A:Respuesta del perdedor: "+msgLosser);
 					//Invoco listener para que se cambie de pantalla
 					//Pantalla de resultados
-					/*
-					sf = ScreenFinal.getInstance(msgMyLetters,msgYourLetters);
-					finalListener.showFinalScreen();
-					*/
+					
+					//sf = ScreenFinal.getInstance(msgMyLetters,msgYourLetters);
+					//finalListener.showFinalScreen();
+					
 					msgWinner="";
 					msgLosser="";
-				}else if(cont==2) {
+				}
+			else if(cont==2) {
 					//Caso en el que es el jugador perdedor
 					String rivalScore = "";
 					System.out.println("B:Perdedor esperando");
@@ -123,13 +126,14 @@ public class ClientConnection {
 					System.out.println("B:Mi respuesta: "+msgLosser);
 					System.out.println("B:Respuesta del ganador: "+msgWinner);
 					//Aqui se invoca la interfaz de resultado caso perdedor
-					/*
+					
 					sf = ScreenFinal.getInstance(msgMyLetters,msgYourLetters);
 					finalListener.showFinalScreen();
-					*/
+					
 					msgWinner="";
 					msgLosser="";
 				}
+				*/
 
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
