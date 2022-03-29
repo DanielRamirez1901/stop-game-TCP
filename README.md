@@ -9,6 +9,8 @@
 * [JDK 8.](https://www.oracle.com/co/java/technologies/javase/javase-jdk8-downloads.html "JDK 8.")
 * [Scene Builder.](https://gluonhq.com/products/scene-builder/ "Scene Builder.")
 * [Windows 10.](https://www.microsoft.com/es-es/software-download/windows10 "Windows 10.")
+* [Eclipse.](https://www.eclipse.org/downloads/.")
+* [Gson Maven.](https://mvnrepository.com/artifact/com.google.code.gson/gson.)
 
 ## 🛑 Authors
 * Daniel Ramirez Gomez. [GitHub profile.](https://github.com/DanielRamirez1901 "GitHub profile.")
