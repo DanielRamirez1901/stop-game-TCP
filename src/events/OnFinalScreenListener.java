@@ -1,5 +1,5 @@
 package events;
 
 public interface OnFinalScreenListener {
-	void showFinalScreen();
+	void showFinalScreen(String string1, String string2);
 }

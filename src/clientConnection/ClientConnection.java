@@ -100,11 +100,13 @@ public class ClientConnection {
 					System.out.println("Cliente ganador recibio: "+msgLosser);
 					System.out.println("Cliente ganador tiene: "+msgWinner);
 					System.out.println("Invoco interfaz resultado Ganador:D");
-					msgWinner="";
-					msgLosser="";
+					
+					
+					
 					Platform.runLater(()-> {
-					finalListener.showFinalScreen();
+					finalListener.showFinalScreen(msgWinner,msgLosser);
 					});
+
 					//Invoco listener para que se cambie de pantalla
 					//Pantalla de resultados
 					/*
@@ -142,11 +144,11 @@ public class ClientConnection {
 						//msgLosser=toSend;
 						System.out.println("Cliente perdedor tiene: "+msgLosser);
 						System.out.println("Invoco interfaz resultado Perdedor:D");
-						msgWinner="";
-						msgLosser="";
+					
+						
 						
 						Platform.runLater(()-> {
-							finalListener.showFinalScreen();
+							finalListener.showFinalScreen(msgLosser,msgWinner);
 						});
 
 						//sg = ScreenGame.getInstance();

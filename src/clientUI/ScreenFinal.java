@@ -8,8 +8,8 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
-public class ScreenFinal implements OnFinalScreenListener{
-	
+public class ScreenFinal {
+	/*
 		@FXML
     	private AnchorPane anchor;
 		@FXML
@@ -92,7 +92,7 @@ public class ScreenFinal implements OnFinalScreenListener{
 			}*/
 			//Luego de invocarla, hago split para obtener mensajes
 			//Invoco metodo de obtener puntaje
-			
+			/*
 			System.out.println("Acabo el cliente :D");
 		}
 		public void setStage(Stage stage) {
@@ -108,10 +108,10 @@ public class ScreenFinal implements OnFinalScreenListener{
 			lblMyCity.setText(myLetters[2]);
 			lblMyThing.setText(myLetters[3]);
 			*/
-		}
-		
+		//}/*
+		/*
 		public void setYourLettersInInterface() {
-			System.out.println("Entro a SetYouLetter(metodo final)");
+			//System.out.println("Entro a SetYouLetter(metodo final)");
 			/*
 			String [] yourLetters = yourMsg.split(":");
 			lblYourName.setText(yourLetters[0]);
@@ -129,8 +129,8 @@ public class ScreenFinal implements OnFinalScreenListener{
 			lblMyScore.setText(myScoreString);
 			lblYourScore.setText(yourScoreString);
 			*/
-		}
-		
+		//}/*
+		/*
 		public void calculateScore(String myScoremsg, String yourScoremsg) {
 			if(yourScoremsg.isEmpty()) {
 				yourScore+=0;
@@ -151,5 +151,5 @@ public class ScreenFinal implements OnFinalScreenListener{
 			
 		}
 		
-		
+		*/
 }

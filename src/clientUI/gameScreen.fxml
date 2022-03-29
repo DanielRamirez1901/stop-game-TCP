@@ -6,6 +6,7 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
 
 <AnchorPane fx:id="anchorGame" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="523.0" prefWidth="339.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
    <children>
@@ -19,6 +20,9 @@
       <TextField fx:id="citytxt" layoutX="57.0" layoutY="292.0" prefHeight="26.0" prefWidth="225.0" />
       <TextField fx:id="ittxt" layoutX="58.0" layoutY="365.0" prefHeight="26.0" prefWidth="225.0" />
       <Button layoutX="94.0" layoutY="445.0" mnemonicParsing="false" onAction="#stopbutt" opacity="0.0" prefHeight="64.0" prefWidth="174.0" text="Button" />
-      <Label fx:id="randomLetterlb" layoutX="198.0" layoutY="22.0" prefHeight="53.0" prefWidth="72.0" />
+      <Label fx:id="randomLetterlb" layoutX="204.0" layoutY="21.0" prefHeight="53.0" prefWidth="54.0" textAlignment="CENTER">
+         <font>
+            <Font size="35.0" />
+         </font></Label>
    </children>
 </AnchorPane>

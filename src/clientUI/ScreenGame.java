@@ -194,6 +194,20 @@ public class ScreenGame implements OnPlayerFoundListener{
 		public void saveLetters() {
 			
    		String msgToSend = "";
+   		if(nametxt.getText()==null||nametxt.getText().equals("")||nametxt.getText().isEmpty()) {
+   			nametxt.setText("-");
+   		}
+   		if(animaltxt.getText()==null||animaltxt.getText().equals("")||animaltxt.getText().isEmpty()) {
+   			animaltxt.setText("-");
+   		}
+   		if(citytxt.getText()==null||citytxt.getText().equals("")||citytxt.getText().isEmpty()) {
+   			citytxt.setText("-");
+   		}
+   		if(ittxt.getText()==null||ittxt.getText().equals("")||ittxt.getText().isEmpty()) {
+   			ittxt.setText("-");
+   		}
+
+
    		msgToSend = nametxt.getText()+":"+animaltxt.getText()+":"+citytxt.getText()+":"+ittxt.getText();
    		//System.out.println("Nombre: "+nametxt.getText());
    		cc.setMsgLosser(msgToSend);
