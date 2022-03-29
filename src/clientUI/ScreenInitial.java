@@ -22,7 +22,6 @@ public class ScreenInitial {
 	public SaveStageToUse save;
 	private OnWaitingScreenListener waitingList;
 	private OnStartScreenListener startListener;
-	//ScreenGame sg= ScreenGame.getInstance();
 	
 	Stage stage;
 	Stage stageToSend;
@@ -35,24 +34,12 @@ public class ScreenInitial {
 
 	 @FXML
 	 void showWaiting(ActionEvent event) {
-		
-		 /*
-		 mc = new MainClient();
-		 mc.setScreenInitial(this);
-		 stageToSend = startListener.getStageToUse();
-		 */
-		
-		 //La funcion del boton sera avisarle al main client que le entregue
-		 //el stage para asi usar en su iniciacion
-		 //System.out.println(event);
-		 //Pasar stages
 			try {
 				FXMLLoader loader = new FXMLLoader(getClass().getResource("loadingScreen.fxml"));
 				Parent p;
 				loader.setController(this);
 				p = (Parent) loader.load();
 				Scene scene = new Scene(p);
-				//stage2 = stage;
 				
 			    Stage stage = (Stage) anchorPaneInit.getScene().getWindow();
 				stage.setScene(scene);
@@ -60,14 +47,10 @@ public class ScreenInitial {
 				stage.show();
 				save = SaveStageToUse.getInstance();
 				save.setStage(stageToSend);
-				System.out.println("Stge desde ScreenInitial" + stageToSend);
-				//sg.setStage(stage);
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			//cl = Client.getInstance();
-			System.out.println("Esta es la stage desde ScreenInitial: "+stageToSend);
 			cl = new Client(stageToSend);
 			cl.setScreenInitial(this);
 			waitingList.waitingScreenListener();

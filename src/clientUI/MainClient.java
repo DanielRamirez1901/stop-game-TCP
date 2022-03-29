@@ -14,7 +14,6 @@ public class MainClient extends Application implements OnStartScreenListener{
 	Stage stageToSend;
 	ScreenInitial si ;
 	SaveStageToUse save;
-	//ScreenGame sg = ScreenGame.getInstance();
 	
 	
 	public static void main(String[] args) {
@@ -33,12 +32,6 @@ public class MainClient extends Application implements OnStartScreenListener{
 		
         primaryStage.setScene(scene);
         primaryStage.show();
-		//System.out.println("Stage desde MainClient:" +stageToSend);
-		//save = SaveStageToUse.getInstance();
-		//save.setStage(stageToSend);
-		//System.out.println("Stage desde MainClient: "+stageToSend);
-		//si = new ScreenInitial();
-		//si.setStage(stageToSend);
 	}
 
 
@@ -54,7 +47,6 @@ public class MainClient extends Application implements OnStartScreenListener{
 
 	@Override
 	public Stage getStageToUse() {
-		System.out.println("Stage desde MainClient: "+stageToSend);
 		return stageToSend;
 	}
 	

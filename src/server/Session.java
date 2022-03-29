@@ -50,7 +50,6 @@ public class Session extends Thread{
 			bwriter1.flush();
 			bwriter2.write(toSendC1+"\n");
 			bwriter2.flush();
-			System.out.println("Ya envie el mensaje a los dos jugadores");
 			
 			//Aqui espero a ambos jugadores por sus respuestas
 			//Si el socket1 me envia algo, le envio esa respuesta al socket2
@@ -60,10 +59,8 @@ public class Session extends Thread{
 				//Hilo espera cliente 1
 				String msgClient1 = "";
 				try {
-					System.out.println("Esperando rpta cliente 1");
 					msgClient1 = breader1.readLine();//Respuestas cliente 1
 					String msgToSend = gson.fromJson(msgClient1, String.class);
-					System.out.println("Mensaje recibido cliente 1: "+msgToSend);
 					String msgToResend = gson.toJson(msgToSend);
 					String snd = "YouLose";
 					String msgToLost = gson.toJson(snd);
@@ -71,7 +68,6 @@ public class Session extends Thread{
 					bwriter2.flush();
 					bwriter2.write(msgToResend+"\n");//Le envio a cliente 2
 					bwriter2.flush();
-					System.out.println("Respuesta de cliente 1 enviada");
 					
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
@@ -84,10 +80,8 @@ public class Session extends Thread{
 				//Hilo espera cliente 2
 				String msgClient2 = "";
 				try {
-					System.out.println("Esperando rpta cliente 2");
 					msgClient2 = breader2.readLine();//Respuestas cliente 2
 					String msgToSend = gson.fromJson(msgClient2, String.class);
-					System.out.println("Mensaje recibido cliente 2:"+msgToSend);
 					String msgToResend = gson.toJson(msgToSend);
 					String snd = "YouLose";
 					String msgToLost = gson.toJson(snd);
@@ -95,7 +89,6 @@ public class Session extends Thread{
 					bwriter1.flush();
 					bwriter1.write(msgToResend+"\n");//Le envio a cliente 1
 					bwriter1.flush();
-					System.out.println("Respuesta de cliente 2 enviada");
 					
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
@@ -103,7 +96,6 @@ public class Session extends Thread{
 				}
 				
 			}).start();
-			System.out.println("Ya envie las respuestas a los dos");
 			
 		}catch(IOException ex) {
 			ex.printStackTrace();

@@ -28,12 +28,9 @@ public class Main implements Session.OnMessageListener{
 			System.out.println("Esperando el segundo cliente...");
 			Socket socket2 = server.accept();
 			System.out.println("El otro cliente entro al puerto:" + socket2.getPort());
-			//Aqui en un hilo, creo la sesion con ambos jugadores
 			new Thread(()-> {
 				startSession(socket1, socket2);
-			}).start();
-			//Se acabo el hilo, vuelvo a esperar otros dos jugadores
-			
+			}).start();			
 		}
 		
 	}

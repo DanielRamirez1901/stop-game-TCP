@@ -33,11 +33,6 @@ public class ScreenGame implements OnPlayerFoundListener{
 	private static ScreenGame instance;
 	
 	public ScreenGame() {
-		
-		/*
-		cc = ClientConnection.getInstance();
-		cc.setPlayListener(this);
-		*/
 	}
 	
    public static synchronized ScreenGame getInstance() {
@@ -84,10 +79,6 @@ public class ScreenGame implements OnPlayerFoundListener{
 	    	}else {
 	    		completeTheText(event);
 	    	}
-	    	//msgToSend = nametxt.getText()+":"+animaltxt.getText()+":"+citytxt.getText();
-	    	//msgToSend = ":"+ittxt.getText();
-	    	//cc.setMsgToSend(msgToSend);
-
 	    }
 
 
@@ -103,67 +94,32 @@ public class ScreenGame implements OnPlayerFoundListener{
 					p = (Parent) loader.load();
 					Scene scene = new Scene(p);
 					
-					
-					
 					save = SaveStageToUse.getInstance();
 					stage = save.getStage();
-					System.out.println("Esta es la escena de ScreenGame: "+stage);
-					//stage =  (Stage) anchorGame.getScene().getWindow();
 					stage.setScene(scene);
 					randomLetterlb.setText(letter);
 					stage.show();
-					
-					
-					
-					//stage.setResizable(false);
-					//stage.setScene(scene);
-					//randomLetterlb.setText(assignRandomLetter());
-					
-					
+	
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 			
 			});
-				System.out.println("Aqui muestro Stop game");
-				//Aqui invoco hilo que entre en modo lectura(cont 2)
-				//Si detecto mensaje, detengo el juego
-				
-				//Borrar luego*****************************************
-				
-				
+
 				Platform.runLater(()-> {
 		    		cc.startConnection(2);
 				});
 		    	
-				
-				//
-				/*
-				Platform.runLater(()->{
-		    		cc.startConnection(2);
-		    	});
-		    	*/
 		}
 		
 		public void sendAlert() {
-			System.out.println("Aqui entro en sendAlert");
 			String msgToSend = "";
-	    	//msgToSend = nametxt.getText()+":"+animaltxt.getText()+":"+citytxt.getText();
-	    	//msgToSend = ":"+ittxt.getText();
-	    	//cc.setMsgToSend(msgToSend);
 	    	Platform.runLater(()->{
 	    		cc.startConnection(3);
 	    	});
 		}
-
-		private void assignLetters() {
-			letters[0] = nametxt.getText();
-			letters[1] = animaltxt.getText();
-			letters[2] = citytxt.getText();
-			letters[3] = ittxt.getText();
-		}
-		
+	
 		
 		 @FXML
 		    public void completeTheText(ActionEvent event) {
@@ -184,8 +140,6 @@ public class ScreenGame implements OnPlayerFoundListener{
 		public void setScreenGame(ClientConnection cc) {
 			this.cc=cc;
 			cc.setPlayListener(this);
-			
-			//this.stage = stage;
 		}
 
 
@@ -209,19 +163,9 @@ public class ScreenGame implements OnPlayerFoundListener{
 
 
    		msgToSend = nametxt.getText()+":"+animaltxt.getText()+":"+citytxt.getText()+":"+ittxt.getText();
-   		//System.out.println("Nombre: "+nametxt.getText());
    		cc.setMsgLosser(msgToSend);
 			
 			
 		}
 		
-		public void saveLetters2() {
-			System.out.println("KHa");
-			
-			String msgToSend = "";
-   		//msgToSend = nametxt.getText()+":"+animaltxt.getText()+":"+citytxt.getText()+":"+ittxt.getText();
-   		System.out.println("Nombre: "+nametxt.getText());
-   		//cc.setMsgLosser(msgToSend);
-			
-		}
 }

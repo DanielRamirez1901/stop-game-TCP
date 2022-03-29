@@ -27,11 +27,7 @@ public class ScreenResult implements OnFinalScreenListener{
 	private static ScreenResult instance;
 	
 	public ScreenResult() {
-		
-		/*
-		cc = ClientConnection.getInstance();
-		cc.setPlayListener(this);
-		*/
+
 	}
 	
    public static synchronized ScreenResult getInstance() {
@@ -88,9 +84,6 @@ public class ScreenResult implements OnFinalScreenListener{
 	public void showFinalScreen(String myMessage, String yourMessage) {
 		this.myMsg = myMessage;
 		this.yourMsg = yourMessage;
-		System.out.println("La clase final recibe:");
-		System.out.println(myMsg);
-		System.out.println(yourMsg);
 		Platform.runLater(()-> {
 		 	FXMLLoader loader = new FXMLLoader(getClass().getResource("answersScreen.fxml"));
 			Parent p;
@@ -98,25 +91,12 @@ public class ScreenResult implements OnFinalScreenListener{
 			loader.setController(this);
 			p = (Parent) loader.load();
 			Scene scene = new Scene(p);
-			
-			
-			
 			save = SaveStageToUse.getInstance();
 			stage = save.getStage();
-			System.out.println("Esta es la escena de ScreenGame: "+stage);
-			//stage =  (Stage) anchorGame.getScene().getWindow();
 			stage.setScene(scene);
 			setMyLettersInInterface();
 			setYourLettersInInterface();
 			stage.show();
-			
-			
-			
-			//stage.setResizable(false);
-			//stage.setScene(scene);
-			//randomLetterlb.setText(assignRandomLetter());
-			
-			
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -127,19 +107,14 @@ public class ScreenResult implements OnFinalScreenListener{
 	}
 	
 	public void setMyLettersInInterface() {
-		System.out.println("Entro a setMyLetters");
 		String [] myLetters = myMsg.split(":");
-		//System.out.println("Esto esta en array"+myLetters[2]);
 		lblMyName.setText(myLetters[0]);
 		lblMyAnimal.setText(myLetters[1]);
 		lblMyCity.setText(myLetters[2]);
 		lblMyThing.setText(myLetters[3]);
-		
 	}
 	
 	public void setYourLettersInInterface() {
-		
-		System.out.println("Entro a SetYouLetter(metodo final)");
 		String [] yourLetters = yourMsg.split(":");
 		lblYourName.setText(yourLetters[0]);
 		lblYourAnimal.setText(yourLetters[1]);
@@ -160,8 +135,6 @@ public class ScreenResult implements OnFinalScreenListener{
 	
 	public void calculateScore(String myScoremsg, String yourScoremsg) {
 		
-
-
 		if(yourScoremsg == "-") {
 			youScore+=youScore+0;
 		}
