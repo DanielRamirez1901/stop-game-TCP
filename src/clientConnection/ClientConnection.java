@@ -14,6 +14,7 @@ import clientGeneral.Client;
 import clientUI.ScreenFinal;
 import clientUI.ScreenGame;
 import clientUI.ScreenInitial;
+import clientUI.ScreenResult;
 import events.OnFinalScreenListener;
 import events.OnPlayerFoundListener;
 import javafx.application.Platform;
@@ -25,13 +26,14 @@ public class ClientConnection {
 	OnPlayerFoundListener playListener;
 	OnFinalScreenListener finalListener;
 	public ScreenGame sg ;
-	public ScreenFinal sf;
+	public ScreenResult sr;
 	public ScreenInitial si;
 	Client cl;
 	Stage stage;
 	String msgWinner = "";
 	String msgLosser = "";
 	int contAccess = 0;
+	
 
 	
 	//Unica instancia************************
@@ -64,6 +66,8 @@ public class ClientConnection {
 				Gson gson = new Gson();
 				sg = ScreenGame.getInstance();
 				sg.setScreenGame(this);
+				sr = ScreenResult.getInstance();
+				sr.setScreenResult(this);
 				if(cont==0) {
 					//Fase de conexion y espera de rival
 					System.out.println("Entro al hilo");
@@ -96,14 +100,18 @@ public class ClientConnection {
 					System.out.println("Cliente ganador recibio: "+msgLosser);
 					System.out.println("Cliente ganador tiene: "+msgWinner);
 					System.out.println("Invoco interfaz resultado Ganador:D");
+					msgWinner="";
+					msgLosser="";
+					Platform.runLater(()-> {
+					finalListener.showFinalScreen();
+					});
 					//Invoco listener para que se cambie de pantalla
 					//Pantalla de resultados
 					/*
 					sf = ScreenFinal.getInstance(msgMyLetters,msgYourLetters);
 					finalListener.showFinalScreen();
 					*/
-					msgWinner="";
-					msgLosser="";
+
 					contAccess++;
 					
 				}else if(cont==2) {
@@ -136,6 +144,11 @@ public class ClientConnection {
 						System.out.println("Invoco interfaz resultado Perdedor:D");
 						msgWinner="";
 						msgLosser="";
+						
+						Platform.runLater(()-> {
+							finalListener.showFinalScreen();
+						});
+
 						//sg = ScreenGame.getInstance();
 						//sg.sendAlert();
 					}
@@ -180,6 +193,7 @@ public class ClientConnection {
 	public void setStage(Stage stage) {
 		this.stage = stage;
 	}
+
 	
 	
 	
