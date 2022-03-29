@@ -31,6 +31,7 @@ public class ClientConnection {
 	Stage stage;
 	String msgWinner = "";
 	String msgLosser = "";
+	int contAccess = 0;
 
 	
 	//Unica instancia************************
@@ -61,7 +62,8 @@ public class ClientConnection {
 		new Thread(()-> {
 			try {
 				Gson gson = new Gson();
-				sg = new ScreenGame(stage);
+				sg = ScreenGame.getInstance();
+				sg.setScreenGame(this);
 				if(cont==0) {
 					//Fase de conexion y espera de rival
 					System.out.println("Entro al hilo");
@@ -73,120 +75,82 @@ public class ClientConnection {
 					msg = breader.readLine();
 					//String msgToPrint = gson.fromJson(msg, String.class);
 					System.out.println(msg);
-					sg.setScreenGame(this);
-					playListener.showGamePlayer(0);
-				}//
-				else if(cont==1) {
-					String stopMsg = "Stop";
-					bwriter.write(stopMsg+"\n");
-					bwriter.flush();
-					String msgToDecide = "";
-					System.out.println("Entre como cliente ganador");
-					//msgToDecide = breader.readLine();
-					
-					System.out.println("Como ganador recibi: "+msgToDecide);
-					//if(msgToDecide.equals("StopWinner")) {
-					
-						String msgToSend = "Mensaje enviado desde el ganador";
-						new Thread(()-> {
-						try {
-							bwriter.write(msgToSend+"\n");
-							bwriter.flush();
-						} catch (IOException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
-						}
-						}).start();
-						String msgOfLosser = "";
-						System.out.println("Espero mensaje del perdedor");
-						msgOfLosser = breader.readLine();
-						System.out.println(msgOfLosser);
-						System.out.println("Ya termine de recibir y enviar como ganador");
-					//}
-					/*else if(msgToDecide == "StopLosser") {
-						System.out.println("Entre como cliente perdedor");
-						String msgOfWinner = "";
-						msgOfWinner = breader.readLine();
-						System.out.println(msgOfWinner);
-						String msgToSend = "Mensaje enviado desde el perdedor";
-						bwriter.write(msgToSend+"\n");
-						bwriter.flush();
-						
-					}*/
-				}else if(cont == 2) {
-					String readMsg = "";
-					String msgToSendToWinner = "Mensaje enviado desde el perdedor";
-					
-					readMsg = breader.readLine();
-					System.out.println("Como perdedor recibi: "+readMsg);
-					if(readMsg.equals("StopLosser")) {
-						System.out.println("Soy el cliente perdedor");
-						readMsg = breader.readLine();
-						System.out.println(readMsg);
-						bwriter.write(msgToSendToWinner+"\n");
-						bwriter.flush();
-						System.out.println("unu");
-					}
-				}
-				/*
-				else if(cont==1){
+					playListener.showGamePlayer(msg);
+				}else if(cont==1){
 					//Caso en el que el jugador presiona Stop
-					System.out.println("A:Soy el ganador, presione Stop");
+					contAccess = 1;
+					
+					System.out.println("Aqui envio mensaje(ganador)");
 					//bwriter.write(msgMyLetters+"\n");
-					String a = "A: Mensaje del ganador";
-					String json = gson.toJson(a);
+					//String a = "Mensaje enviado desde ganador";
+					String json = gson.toJson(msgWinner);
 					bwriter.write(json+"\n");
 					bwriter.flush();
-					msgWinner = json;
 					String rivalScore = "";
-					System.out.println("A: Aqui espero al perdedor");
+					System.out.println("Aqui espero (ganador)");
 					rivalScore = breader.readLine();
 					String msgToPrint = gson.fromJson(rivalScore, String.class);
 					msgLosser = msgToPrint;
-					System.out.println("A: Cliente ganador recibio: "+msgToPrint);
-					System.out.println("A: Invoco interfaz resultado :D");
-					System.out.println("A:Mi respuesta: "+msgWinner);
-					System.out.println("A:Respuesta del perdedor: "+msgLosser);
+					//msgWinner = json;
+					System.out.println("");
+					System.out.println("Cliente ganador recibio: "+msgLosser);
+					System.out.println("Cliente ganador tiene: "+msgWinner);
+					System.out.println("Invoco interfaz resultado Ganador:D");
 					//Invoco listener para que se cambie de pantalla
 					//Pantalla de resultados
-					
-					//sf = ScreenFinal.getInstance(msgMyLetters,msgYourLetters);
-					//finalListener.showFinalScreen();
-					
-					msgWinner="";
-					msgLosser="";
-				}
-			else if(cont==2) {
-					//Caso en el que es el jugador perdedor
-					String rivalScore = "";
-					System.out.println("B:Perdedor esperando");
-					rivalScore = breader.readLine();
-					String msgToPrint = gson.fromJson(rivalScore, String.class);
-					System.out.println("B:Cliente recibio: "+msgToPrint);
-					msgWinner= msgToPrint;
-					//sg = ScreenGame.getInstance();
-					sg.sendAlert();
-				}else if(cont==3) {
-					System.out.println("B: Aqui envio mensaje");
-					//bwriter.write(msgMyLetters+"\n");
-					String b = "B: Mensaje enviado desde el perdedor ";
-					String toSend = gson.toJson(b);
-					bwriter.write(toSend+"\n");
-					bwriter.flush();
-					msgLosser = toSend;
-					System.out.println("Invoco interfaz resultado :D");
-					System.out.println("B:Mi respuesta: "+msgLosser);
-					System.out.println("B:Respuesta del ganador: "+msgWinner);
-					//Aqui se invoca la interfaz de resultado caso perdedor
-					
+					/*
 					sf = ScreenFinal.getInstance(msgMyLetters,msgYourLetters);
 					finalListener.showFinalScreen();
+					*/
+					msgWinner="";
+					msgLosser="";
+					contAccess++;
 					
+				}else if(cont==2) {
+					//Caso en el que es el jugador perdedor
+					
+					String rivalScore = "";
+					System.out.println("Aqui espero (perdedor)");
+					
+					String lostMsg = "";
+					lostMsg = breader.readLine();
+					String msgTo = gson.fromJson(lostMsg, String.class);
+					System.out.println("Mensaje de cliente perdedor: "+msgTo);
+					if(msgTo.contains("YouLose")) {
+
+						rivalScore = breader.readLine();
+						String msgToPrint = gson.fromJson(rivalScore, String.class);
+						System.out.println("Cliente perdedor recibe: "+msgToPrint);
+						//Invocar obtener resultados
+						
+						playListener.saveLetters();
+						//sg.saveLetters2();
+						
+						//String b = "Mensaje enviado perdedor";
+						String toSend = gson.toJson(msgLosser);
+						bwriter.write(toSend+"\n");
+						bwriter.flush();
+						msgWinner= msgToPrint;
+						//msgLosser=toSend;
+						System.out.println("Cliente perdedor tiene: "+msgLosser);
+						System.out.println("Invoco interfaz resultado Perdedor:D");
+						msgWinner="";
+						msgLosser="";
+						//sg = ScreenGame.getInstance();
+						//sg.sendAlert();
+					}
+					
+				}else if(cont==3) {
+					System.out.println("Aqui envio mensaje(perdedor)");
+					//bwriter.write(msgMyLetters+"\n");
+					//Aqui se invoca la interfaz de resultado caso perdedor
+					/*
+					sf = ScreenFinal.getInstance(msgMyLetters,msgYourLetters);
+					finalListener.showFinalScreen();
+					*/
 					msgWinner="";
 					msgLosser="";
 				}
-				*/
-
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -201,8 +165,11 @@ public class ClientConnection {
 	public void setPlayListener(OnPlayerFoundListener playListener) {
 		this.playListener = playListener;
 	}
-	public void setMsgToSend(String msgToSend) {
+	public void setMsgWinner(String msgToSend) {
 		this.msgWinner = msgToSend;
+	}
+	public void setMsgLosser(String msgLosser) {
+		this.msgLosser = msgLosser;
 	}
 	public void setFinalListener(OnFinalScreenListener finalListener) {
 		this.finalListener = finalListener;

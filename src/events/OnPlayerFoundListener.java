@@ -3,5 +3,6 @@ package events;
 import javafx.stage.Stage;
 
 public interface OnPlayerFoundListener {
-	void showGamePlayer(int cont);
+	void showGamePlayer(String letter);
+	void saveLetters();
 }
